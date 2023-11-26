@@ -2,12 +2,19 @@
 
 Program P3
 	Implicit none
-	real(8), parameter :: nu = 0.1, rho=0.7, dt = 0.0001
+	real(8), parameter :: m = 1, rho=0.7, dt = 0.0001
+	real(8), parameter :: k_b = 1.380649e-23
 	integer, parameter :: N=125, Nsteps_ini = 10000, Nsteps_prod = 500000
 	real(8), dimension(N, 3) :: r, vel
 	integer :: step, i
 	real(8) :: pot, K_energy, L, cutoff, sigma, M, a, Temp, T_inst, inst_temp
 	external inst_temp
+
+	call random_seed(size=n)
+	allocate(seed(n))
+	seed = 123456789    ! putting arbitrary seed to all elements
+	call random_seed(put=seed)
+	deallocate(seed)
 
 	L = (N/rho)**(1./3.)
 	Temp = 100
@@ -22,57 +29,34 @@ Program P3
 
 	call initialize_positions(N, rho, r)
 
+	! Initialize bimodal distrubution: v_i = +- sqrt(k_b T / m)
+	absV = (k_b * Temp / m)**(1./2.)
+	
 	do i=1,N
-		vel(i, :) = (/0.d0, 0.d0, 0.d0/)
+		do j = 1,3
+			call random_number(rnd)
+			if (rnd.ge.0.5) then
+				vel(i, j) = +absV
+			else if (rnd.lt.0.5) then
+				vel(i, j) = -absV
+		end do
 	end do
 
-	open(33, file="Verlet-Anderson.xyz")
-	open(44, file="Energy-Verlet-Anderson.dat")
 
+	! Apply Verlet algorithm
 	do step = 1,Nsteps_ini
-	!	do i = 1, N
-	!		print*, i ,vel(i, :)
-	!	end do
 		call time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
-		call therm_Andersen(vel, nu, sigma, N)
 		call kinetic_energy(vel, K_energy, N)
+		! TO-DO: Momentum 
 		write(44,*) step, pot, K_energy, pot+K_energy
-		!print*, real(step)/Nsteps
 		if (mod(step, 1000).eq.0) then
 			print*, real(step)/Nsteps_ini
 		end if
 	end do
 
-	write(33,*) "125"
-	write(33,*) ""
-	do i = 1, N
-		write(33,*) "A", r(i, :)	
-	end do
+	! To-do: do it with different dt's
 
-	close(33)
-	close(44)
 
-	print*, "PRODUCTION STARTS"
-	print*, "-------------------"
-	open(55, file="thermodynamics.dat")	
-
-	Temp = 1.5
-	sigma = Temp**(1.d0/2.d0)
-	
-	do step = 1,Nsteps_prod
-!		do i = 1, N
-!			print*, i ,vel(i, :)
-!		end do
-		call time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
-		call therm_Andersen(vel, nu, sigma, N)
-		call kinetic_energy(vel, K_energy, N)
-		T_inst = inst_temp(N, K_energy)
-		write(55,*) step, pot, K_energy, pot+K_energy, T_inst
-		!print*, real(step)/Nsteps
-		if (mod(step, 1000).eq.0) then
-			print*, real(step)/Nsteps_prod
-		end if
-	end do
 	
 
 End Program
@@ -270,3 +254,31 @@ Function inst_temp(N, K_energy)
 	inst_temp = 2.d0/(N_f * k_b)*K_energy
 	Return
 End Function
+
+
+Subroutine time_step_Euler_pbc(r_in, r_out, vel, N, L, cutoff, dt, pot)
+ 	Implicit none
+ 	integer, intent(in) :: N
+ 	real(8), dimension(N, 3), intent(in) :: r_in
+ 	real(8), dimension(N, 3), intent(out) :: r_out
+ 	real(8), dimension(N, 3) :: vel, F
+ 	real(8), intent(in) :: L, dt
+ 	integer :: i
+ 	real(8) :: cutoff, pot
+
+ 	Call find_force_LJ(r_in, N, L, cutoff, F, pot)
+
+
+ 	do i = 1, N
+		r_out(i, 1) = r_in(i, 1) + vel(i, 1) * dt + 0.5*F(i, 1)*dt*dt
+		r_out(i, 2) = r_in(i, 2) + vel(i, 2) * dt + 0.5*F(i, 2)*dt*dt
+		r_out(i, 3) = r_in(i, 3) + vel(i, 3) * dt + 0.5*F(i, 3)*dt*dt
+		vel(i, 1) = vel(i, 1) + F(i, 1) * dt
+		vel(i, 2) = vel(i, 2) + F(i, 2) * dt
+		vel(i, 3) = vel(i, 3) + F(i, 3) * dt
+		call pbc1(r_out(i,1), L)
+		call pbc1(r_out(i,2), L)
+		call pbc1(r_out(i,3), L)
+	end do
+
+End Subroutine
