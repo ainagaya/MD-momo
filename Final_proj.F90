@@ -2,13 +2,16 @@
 
 Program P3
 	Implicit none
-	real(8), parameter :: m = 1, rho=0.7, dt = 0.0001
+	real(8), parameter :: m = 1, rho=0.7
 	real(8), parameter :: k_b = 1.380649e-23
 	integer, parameter :: N=125, Nsteps_ini = 10000, Nsteps_prod = 500000
 	real(8), dimension(N, 3) :: r, vel
 	integer :: step, i
-	real(8) :: pot, K_energy, L, cutoff, sigma, M, a, Temp, T_inst, inst_temp
+	real(8) :: pot, K_energy, L, cutoff, sigma, M, a, Temp, T_inst, inst_temp, dt
+	real(8), dimension(7) :: dt_list
 	external inst_temp
+
+	dt_list = (/ 10e-1, 10e-2, 10e-3, 10e-4, 10e-5, 10e-6, 10e-7 /)
 
 	call random_seed(size=n)
 	allocate(seed(n))
@@ -27,6 +30,53 @@ Program P3
 
 	cutoff = L
 
+	! """"
+	! ii) Initialize system and run simulation using velocity Verlet
+	! 
+	! """"
+	
+	call initialize_positions(N, rho, r)
+
+	! Initialize bimodal distrubution: v_i = +- sqrt(k_b T / m)
+	absV = (k_b * Temp / m)**(1./2.)
+	
+	do i=1,N
+		do j = 1,3
+			call random_number(rnd)
+			if (rnd.ge.0.5) then
+				vel(i, j) = +absV
+			else if (rnd.lt.0.5) then
+				vel(i, j) = -absV
+		end do
+	end do
+
+	! Write velocities in file
+
+	! Apply Verlet algorithm
+	do dt_index = 1, 7
+		dt = dt_list(dt_index)
+		write(44,*) ""
+		write(44,*) "dt = ", dt
+		do step = 1,Nsteps_ini
+			call time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
+			call kinetic_energy(vel, K_energy, N)
+			! TO-DO: Momentum 
+			write(44,*) step, pot, K_energy, pot+K_energy
+			if (mod(step, 1000).eq.0) then
+				print*, real(step)/Nsteps_ini
+			end if
+		end do
+	end do
+
+	! Write velocities in file
+
+
+	! """"
+	! iii) Initialize system and run simulation using Euler
+	! 
+	! """"
+
+	! Initialize again, now to apply Euler method
 	call initialize_positions(N, rho, r)
 
 	! Initialize bimodal distrubution: v_i = +- sqrt(k_b T / m)
@@ -43,19 +93,24 @@ Program P3
 	end do
 
 
-	! Apply Verlet algorithm
-	do step = 1,Nsteps_ini
-		call time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
-		call kinetic_energy(vel, K_energy, N)
-		! TO-DO: Momentum 
-		write(44,*) step, pot, K_energy, pot+K_energy
-		if (mod(step, 1000).eq.0) then
-			print*, real(step)/Nsteps_ini
-		end if
+	! Apply Euler algorithm
+	do dt_index = 1, 7
+		dt = dt_list(dt_index)
+		write(44,*) ""
+		write(44,*) "dt = ", dt
+		do step = 1,Nsteps_ini
+			call time_step_Euler_pbc(r, vel, pot, N, L, cutoff, dt)
+			call kinetic_energy(vel, K_energy, N)
+			! TO-DO: Momentum 
+			write(44,*) step, pot, K_energy, pot+K_energy
+			if (mod(step, 1000).eq.0) then
+				print*, real(step)/Nsteps_ini
+			end if
+		end do
 	end do
 
-	! To-do: do it with different dt's
-
+	! Write velocities in file
+	
 
 	
 
