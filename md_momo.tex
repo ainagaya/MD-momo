@@ -1,0 +1,85 @@
+% !TeX spellcheck = ca
+% TIPUS DE DOCUMENT
+\documentclass[a4paper,10pt]{article} 
+% Permet canviar la mida del paper, la mida de la lletra...
+
+% GEOMETRIA
+%\usepackage[a4paper,bindingoffset=0.2in,%
+%left=3cm,right=3cm,top=2.5cm,bottom=2.5cm,%
+%footskip=.25in]{geometry} % Marges normals
+
+\usepackage[a4paper,bindingoffset=0.2in,%
+left=1in,right=1in,top=1in,bottom=1in,%
+footskip=.25in]{geometry} % Marges estrets
+
+% IDIOMA 
+%\usepackage[catalan]{babel} %Fa que l'idioma del document sigui en català (p.ex. escriurà "Resum" enlloc de "Abstract")
+\usepackage[english]{babel} %Fa que l'idioma del document sigui l'anglès
+
+% ENCODING
+\usepackage{cmap,lmodern}  % Útil tenir-ho sempre.
+\usepackage[T1]{fontenc} % Millora els caràcters del pdf que es produeix
+\usepackage[utf8]{inputenc} % Evita problemes amb què LaTeX no sàpiga llegir certs caràcters.
+\usepackage{hyperref} % Permet que els links siguin clicables en lectors pdf
+
+% IMATGES
+% \usepackage{wrapfig,graphicx} % Permet afegir imatges
+%\graphicspath{{Imatges/} % Si volem guardar totes les imatges en una carpeta (+ còmode)
+\usepackage[font=small]{caption} % Peus de foto
+% \usepackage{subcaption} % Subpeus de foto
+% \usepackage{tikz}
+% \usepackage{float}
+% \usepackage{pgfplots}
+% \usepackage{multirow}
+\usepackage[labelfont=bf]{caption}
+\usepackage{fancyhdr}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{graphicx}
+% \usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{amssymb}
+% \usepackage{siunitx}
+\usepackage{parskip}
+% \usepackage{blindtext}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+% \usepackage{multirow}
+\usepackage{longtable}
+\usepackage{fancyvrb}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{fancyhdr}
+	
+% EQUACIONS
+% \usepackage{mathtools,amsmath,amssymb,systeme,braket} % Diverses eines d'equacions
+	
+% OTROS
+\setlength{\parindent}{0em}   % Controla la indentació de la primera línia de cada paràgraf
+%\setlength{\parskip}{0.3em}   % Controla la mida de 'espaiat entre paràgrafs
+%\usepackage{enumitem} %Permet el control sobre llistes
+%\setlist{noitemsep,nolistsep} % Controla l'espaiat entre elements de llista (requereix el paquet enumitem)
+	
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}% TIPUS DE DOCUMENT
+	
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Aina Gaya}
+\lhead{Pràctiques de models QM i MM}
+\cfoot{\thepage}
+	%
+	%opening
+\title{\textsc{{\large Molecular modelling } \\ Analysis of properties of a Lennard-Jones liquid } \\  {\small Molecular Dynamics}}
+\author{Aina Gaya Àvila \\ {\small Lecturer: Carles Calero }}
+	
+\begin{document}
+		
+\maketitle
+
+\section{Introduction: Molecular Dynamics Simulations code}
+\subsection{A system of N particles interacting through a Lennard-Jones potential in contact with a heat bath} 
+%(a) Describe in detail the different parts of the code. How do you initialize the system of particles (and set the density)? What integrator do you use? How do you implement periodic boundary conditions? How do you control the temperature (how do you implement the thermostat)? What units do you use for the Lennard-Jones interactions? What cut-off do you use for the interactions (and why)? What truncation strategy do you choose?
+
+\end{document}
