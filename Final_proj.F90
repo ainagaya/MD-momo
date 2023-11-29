@@ -47,7 +47,7 @@ Program P3
 	call initialize_velocities(N, absV, vel_ini)
 
 	do i=1,N
-		write(22,*) vel(i,:)
+		write(22,*) vel_ini(i,:)
 	end do
 
 	close(22)
