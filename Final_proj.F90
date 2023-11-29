@@ -2,19 +2,21 @@
 
 Program P3
 	Implicit none
-	real(8), parameter :: m = 1, rho=0.7
+	real(8), parameter :: mass = 1, rho=0.7
 	real(8), parameter :: k_b = 1.380649e-23
-	integer, parameter :: N=125, Nsteps_ini = 10000, Nsteps_prod = 500000
-	real(8), dimension(N, 3) :: r, vel
-	integer :: step, i
-	real(8) :: pot, K_energy, L, cutoff, sigma, M, a, Temp, T_inst, inst_temp, dt
+	integer, parameter :: N=125, Nsteps_ini = 1000, Nsteps_prod = 500000
+	real(8), dimension(N, 3) :: r, r_ini, vel, vel_ini, p, r_out
+	integer :: step, i, j, dt_index
+	real(8) :: pot, K_energy, L, cutoff, sigma, M, a, Temp, T_inst, inst_temp, dt, absV, rnd
 	real(8), dimension(7) :: dt_list
+	integer, allocatable :: seed(:)
+	integer :: nn
 	external inst_temp
 
 	dt_list = (/ 10e-1, 10e-2, 10e-3, 10e-4, 10e-5, 10e-6, 10e-7 /)
 
-	call random_seed(size=n)
-	allocate(seed(n))
+	call random_seed(size=nn)
+	allocate(seed(nn))
 	seed = 123456789    ! putting arbitrary seed to all elements
 	call random_seed(put=seed)
 	deallocate(seed)
@@ -35,41 +37,53 @@ Program P3
 	! 
 	! """"
 	
-	call initialize_positions(N, rho, r)
 
 	! Initialize bimodal distrubution: v_i = +- sqrt(k_b T / m)
-	absV = (k_b * Temp / m)**(1./2.)
+	absV = (k_b * Temp / mass)**(1./2.)
+
+	open(22, file="vel_ini.dat")
 	
+	call initialize_positions(N, rho, r_ini)
+	call initialize_velocities(N, absV, vel_ini)
+
 	do i=1,N
-		do j = 1,3
-			call random_number(rnd)
-			if (rnd.ge.0.5) then
-				vel(i, j) = +absV
-			else if (rnd.lt.0.5) then
-				vel(i, j) = -absV
-		end do
+		write(22,*) vel(i,:)
 	end do
 
-	! Write velocities in file
+	close(22)
+
 
 	! Apply Verlet algorithm
 	do dt_index = 1, 7
 		dt = dt_list(dt_index)
 		write(44,*) ""
 		write(44,*) "dt = ", dt
+
+		r = r_ini
+		vel = vel_ini
+
 		do step = 1,Nsteps_ini
 			call time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
 			call kinetic_energy(vel, K_energy, N)
-			! TO-DO: Momentum 
-			write(44,*) step, pot, K_energy, pot+K_energy
+			! Momentum p = m*v
+			p = mass*vel
+			write(44,*) step, pot, K_energy, pot+K_energy, p
 			if (mod(step, 1000).eq.0) then
 				print*, real(step)/Nsteps_ini
 			end if
 		end do
+
+	Temp = inst_temp(N, K_energy)
+	write(*,*) "dt = ", dt
+	write(*,*) "T = ", Temp
+
 	end do
 
-	! Write velocities in file
-
+	open(23, file="vel_fin_Verlet.dat")
+	do i = 1, N
+		write(23,*) vel(i,:)
+	end do
+	close(23)
 
 	! """"
 	! iii) Initialize system and run simulation using Euler
@@ -77,41 +91,40 @@ Program P3
 	! """"
 
 	! Initialize again, now to apply Euler method
-	call initialize_positions(N, rho, r)
-
-	! Initialize bimodal distrubution: v_i = +- sqrt(k_b T / m)
-	absV = (k_b * Temp / m)**(1./2.)
-	
-	do i=1,N
-		do j = 1,3
-			call random_number(rnd)
-			if (rnd.ge.0.5) then
-				vel(i, j) = +absV
-			else if (rnd.lt.0.5) then
-				vel(i, j) = -absV
-		end do
-	end do
-
-
 	! Apply Euler algorithm
 	do dt_index = 1, 7
 		dt = dt_list(dt_index)
-		write(44,*) ""
-		write(44,*) "dt = ", dt
+		write(45,*) ""
+		write(45,*) "dt = ", dt
+
+		r = r_ini
+		vel = vel_ini
+
+		! Initialize velocities and positions
+
 		do step = 1,Nsteps_ini
-			call time_step_Euler_pbc(r, vel, pot, N, L, cutoff, dt)
+			call time_step_Euler_pbc(r, r_out, vel, N, L, cutoff, dt, pot)
 			call kinetic_energy(vel, K_energy, N)
-			! TO-DO: Momentum 
-			write(44,*) step, pot, K_energy, pot+K_energy
+			! Momentum p = m*v
+			p = mass*vel
+			write(45,*) step, pot, K_energy, pot+K_energy, p
 			if (mod(step, 1000).eq.0) then
 				print*, real(step)/Nsteps_ini
 			end if
+			r = r_out
 		end do
+
+	Temp = inst_temp(N, K_energy)
+	write(*,*) "dt = ", dt
+	write(*,*) "T = ", Temp
+
 	end do
-
-	! Write velocities in file
 	
-
+	open(24, file="vel_fin_Euler.dat")
+	do i = 1, N
+		write(24,*) vel(i,:)
+	end do
+	close(24)
 	
 
 End Program
@@ -335,5 +348,26 @@ Subroutine time_step_Euler_pbc(r_in, r_out, vel, N, L, cutoff, dt, pot)
 		call pbc1(r_out(i,2), L)
 		call pbc1(r_out(i,3), L)
 	end do
+
+End Subroutine
+
+Subroutine initialize_velocities(N, absV, vel)
+	Implicit none
+	integer, intent(in) :: N
+	real(8) :: absV, rnd
+	integer :: i, j
+	real(8), dimension(N, 3) :: vel
+
+	do i=1,N
+		do j = 1,3
+			call random_number(rnd)
+			if (rnd.ge.0.5) then
+				vel(i, j) = +absV
+			else if (rnd.lt.0.5) then
+				vel(i, j) = -absV
+			end if
+		end do
+	end do
+
 
 End Subroutine
