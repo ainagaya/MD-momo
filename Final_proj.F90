@@ -4,10 +4,10 @@ Program P3
 	Implicit none
 	real(8), parameter :: mass = 1, rho=0.7
 	real(8), parameter :: k_b = 1.380649e-23
-	integer, parameter :: N=125, Nsteps_ini = 1000, Nsteps_prod = 500000
-	real(8), dimension(N, 3) :: r, r_ini, vel, vel_ini, p, r_out
-	integer :: step, i, j, dt_index
-	real(8) :: pot, K_energy, L, cutoff, sigma, M, a, Temp, T_inst, inst_temp, dt, absV, rnd
+	integer, parameter :: N=125, Nsteps_ini = 2, Nsteps_prod = 500000
+	real(8), dimension(N, 3) :: r, r_ini, vel, vel_ini, r_out
+	integer :: step, i, dt_index
+	real(8) :: pot, K_energy, L, cutoff, sigma, M, a, Temp, inst_temp, dt, absV, p
 	real(8), dimension(7) :: dt_list
 	integer, allocatable :: seed(:)
 	integer :: nn
@@ -52,10 +52,12 @@ Program P3
 
 	close(22)
 
+	open(44, file="energy_verlet.dat")
 
 	! Apply Verlet algorithm
 	do dt_index = 1, 7
 		dt = dt_list(dt_index)
+		write(44,*) ""
 		write(44,*) ""
 		write(44,*) "dt = ", dt
 
@@ -64,9 +66,11 @@ Program P3
 
 		do step = 1,Nsteps_ini
 			call time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
+		!	print*, r, vel
 			call kinetic_energy(vel, K_energy, N)
 			! Momentum p = m*v
-			p = mass*vel
+			p = (2*mass*K_energy)**(1./2.)
+			!print*, step, pot, K_energy, pot+K_energy, p
 			write(44,*) step, pot, K_energy, pot+K_energy, p
 			if (mod(step, 1000).eq.0) then
 				print*, real(step)/Nsteps_ini
@@ -78,6 +82,8 @@ Program P3
 	write(*,*) "T = ", Temp
 
 	end do
+
+	close(44)
 
 	open(23, file="vel_fin_Verlet.dat")
 	do i = 1, N
@@ -92,8 +98,12 @@ Program P3
 
 	! Initialize again, now to apply Euler method
 	! Apply Euler algorithm
+
+	open(45, file="energy_euler.dat")
+
 	do dt_index = 1, 7
 		dt = dt_list(dt_index)
+		write(45,*) ""
 		write(45,*) ""
 		write(45,*) "dt = ", dt
 
@@ -106,7 +116,7 @@ Program P3
 			call time_step_Euler_pbc(r, r_out, vel, N, L, cutoff, dt, pot)
 			call kinetic_energy(vel, K_energy, N)
 			! Momentum p = m*v
-			p = mass*vel
+			p = (2*mass*K_energy)**(1./2.)
 			write(45,*) step, pot, K_energy, pot+K_energy, p
 			if (mod(step, 1000).eq.0) then
 				print*, real(step)/Nsteps_ini
@@ -119,6 +129,8 @@ Program P3
 	write(*,*) "T = ", Temp
 
 	end do
+
+	close(45)
 	
 	open(24, file="vel_fin_Euler.dat")
 	do i = 1, N
@@ -220,6 +232,7 @@ Subroutine time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
 
 	Call find_force_LJ(r, N, L, cutoff, F, pot)
 
+	print*, F
 	do i = 1, N
 		do k = 1, 3
 			vel(i, k) = vel(i, k) + F(i, k)* 0.5 * dt
