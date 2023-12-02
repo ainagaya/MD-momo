@@ -4,16 +4,16 @@ Program P3
 	Implicit none
 	real(8), parameter :: mass = 1, rho=0.7, epsilon=1 , sigma=1 
 !	real(8), parameter :: k_b = 1.380649e-23
-	integer, parameter :: N=125, Nsteps_ini = 10000, Nsteps_prod = 500000
+	integer, parameter :: N=125, Nsteps_prod = 500000
 	real(8), dimension(N, 3) :: r, r_ini, vel, vel_ini, r_out
-	integer :: step, i, dt_index
-	real(8) :: pot, K_energy, L, cutoff, M, a, Temp, inst_temp, dt, absV, p
-	real(8), dimension(5) :: dt_list
+	integer :: step, i, dt_index, Nsteps
+	real(8) :: pot, K_energy, L, cutoff, M, a, Temp, inst_temp, dt, absV, p, tini, tfin
+	real(8), dimension(3) :: dt_list
 	integer, allocatable :: seed(:)
 	integer :: nn
 	external inst_temp
 
-	dt_list = (/ 1e-3, 1e-4, 1e-5, 1e-6, 1e-7/)
+	dt_list = (/ 1e-3, 1e-5, 1e-7/)
 
 	call random_seed(size=nn)
 	allocate(seed(nn))
@@ -53,35 +53,43 @@ Program P3
 	close(22)
 
 	open(44, file="energy_verlet.dat")
+	open(77, file="Temperatures.dat")
+
+	tini = 0
+	tfin = 100
 
 	! Apply Verlet algorithm
-	do dt_index = 1, 5
+	do dt_index = 1, 3
 		dt = dt_list(dt_index)
 		write(44,*) ""
 		write(44,*) ""
 		write(44,*) "dt = ", dt
 
+		Nsteps = int((tfin - tini)/dt)
+
 		! We roll back to the initial positions and velocities to initialize
 		r = r_ini
 		vel = vel_ini
 
-		do step = 1,Nsteps_ini
+		do step = 1,Nsteps
 			call time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
 		!	print*, r, vel
 			call kinetic_energy(vel, K_energy, N)
 			! Momentum p = m*v
 			p = (2*mass*K_energy)**(1./2.)
 			!print*, step, pot, K_energy, pot+K_energy, p
-			write(44,*) step, pot, K_energy, pot+K_energy, p
+			write(44,*) step*dt, pot, K_energy, pot+K_energy, p
 		!	print*, K_energy
 			if (mod(step, 1000).eq.0) then
-				print*, real(step)/Nsteps_ini
+				print*, real(step)/Nsteps
 			end if
 		end do
 
+
+	
 	Temp = inst_temp(N, K_energy)
-	write(*,*) "dt = ", dt
-	write(*,*) "T = ", Temp
+	write(77,*) "Verlet", dt, Temp
+
 
 	end do
 
@@ -103,7 +111,7 @@ Program P3
 
 	open(45, file="energy_euler.dat")
 
-	do dt_index = 1, 5
+	do dt_index = 1, 3
 		dt = dt_list(dt_index)
 		write(45,*) ""
 		write(45,*) ""
@@ -112,27 +120,29 @@ Program P3
 		r = r_ini
 		vel = vel_ini
 
+		Nsteps = int((tfin - tini)/dt)
+
 		! Initialize velocities and positions
 
-		do step = 1,Nsteps_ini
+		do step = 1,Nsteps
 			call time_step_Euler_pbc(r, r_out, vel, N, L, cutoff, dt, pot)
 			call kinetic_energy(vel, K_energy, N)
 			! Momentum p = m*v
 			p = (2*mass*K_energy)**(1./2.)
 			write(45,*) step, pot, K_energy, pot+K_energy, p
 			if (mod(step, 1000).eq.0) then
-				print*, real(step)/Nsteps_ini
+				print*, real(step)/Nsteps
 			end if
 			r = r_out
 		end do
 
 	Temp = inst_temp(N, K_energy)
-	write(*,*) "dt = ", dt
-	write(*,*) "T = ", Temp
+	write(77,*) "Euler", dt, Temp
 
 	end do
 
 	close(45)
+	close(77)
 	
 	open(24, file="vel_fin_Euler.dat")
 	do i = 1, N

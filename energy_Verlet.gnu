@@ -4,7 +4,7 @@
 
 #Indicacions inicials, tamany de la figura, tipus de lletra i nom del fitxer de sortida
 set terminal pngcairo size 820,500 enhanced font 'Verdana,13'
-set output "energy_verlet.png"
+set output "energy_verlet_1.png"
 
 set zero 1.e-20               # Agafa com zero quantitats inferiors
 #set encoding  iso_8859_15     # Permet l'ús d'accents als  MAS 
@@ -57,7 +57,7 @@ set style line 9 lc rgb '#73FA7C' pt 9 ps 1 lt 9 lw 1 # --- light green
 #--------------------------------------
 #-- X-Axis
 
-#set xlabel "Number of occurrences"      # Etiqueta de l'eix X
+set xlabel "t'"      # Etiqueta de l'eix X
 #set xrange [0.:220.]          # Limits de l'eix X
 
 #set xtics 10e-11          
@@ -79,7 +79,7 @@ set style line 9 lc rgb '#73FA7C' pt 9 ps 1 lt 9 lw 1 # --- light green
 #set mytics 5
 #set ytics border mirror 1
 
-#set ylabel "Velocity"
+set ylabel "E'"
 #set grid ytics
 #set format y "10^%L"        # Les etiquetes logaritmiques són millors.
 #set logscale y
@@ -89,7 +89,7 @@ set style line 9 lc rgb '#73FA7C' pt 9 ps 1 lt 9 lw 1 # --- light green
 
 #set label 1 "bla bla " at screen 0.5,0.69 center font "Helvetica, 24"
 
-#set title 'Ex 3.1.1'
+set title "\Delta t' = 10^{-3}"
 #set title font "Arial, 16"
 
 #set label "S^{3}_{N} = Número de porcions amb N-2 pizzes" at screen 0.35, 0.83 font "Arial,18"
@@ -100,3 +100,37 @@ set style line 9 lc rgb '#73FA7C' pt 9 ps 1 lt 9 lw 1 # --- light green
 file = "energy_verlet.dat"
 
 plot file i 0 using 1:2 t 'Potential energy', file i 0 using 1:3 t 'Kinetic energy', file i 0 using 1:4 t 'Total energy' 
+
+set output "energy_verlet_2.png"
+
+set title "\Delta t' = 10^{-5}"
+
+plot file i 1 using 1:2 t 'Potential energy', file i 1 using 1:3 t 'Kinetic energy', file i 1 using 1:4 t 'Total energy'
+
+set output "energy_verlet_3.png"
+
+set title "\Delta t' = 10^{-7}"
+
+plot file i 2 using 1:2 t 'Potential energy', file i 2 using 1:3 t 'Kinetic energy', file i 2 using 1:4 t 'Total energy'
+
+# MOMENTUM PLOTS
+
+set output "momentum_verlet_1.png"
+
+set title "\Delta t' = 10^{-3}"
+
+set ylabel "p'"
+
+plot file i 0 using 1:5 t 'Momentun'
+
+set output "momentum_verlet_2.png"
+
+set title "\Delta t' = 10^{-5}"
+
+plot file i 1 using 1:5 t 'Momentum'
+
+set output "momentum_verlet_3.png"
+
+set title "\Delta t' = 10^{-7}"
+
+plot file i 2 using 1:5 t 'Mometum'

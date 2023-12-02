@@ -80,6 +80,39 @@ footskip=.25in]{geometry} % Marges estrets
 
 \section{Introduction: Molecular Dynamics Simulations code}
 \subsection{A system of N particles interacting through a Lennard-Jones potential in contact with a heat bath} 
+
+El model microscòpic més senzill per simular una substància capaç d'existir tant en estat sòlid, líquid com gasós està basat en partícules esfèriques que interactuen entre elles. Aquesta interacció es modelitza tenint en compte dues característiques:
+\begin{itemize}
+	\item La resistència a la compressió, és a dir, que cada partícula ocupa el seu espai i a curt abast la interacció és repulsiva. És el principi d'exclusió de Pauli.
+	\item Les forces de Van der Waals entre àtoms als estats sòlid i líquid, que tendeixen a apropar les partícules.
+\end{itemize}
+
+El potencial més emprat per simular el descrit anteriorment és el de Lennard-Jones. Per descriure el potencial entre dues particules $i$ i $j$, localitzades a $r_i$ i $r_j$, pren la forma següent:
+
+$$ u(r_{ij}) = 4 \epsilon \left[ \left( \frac{\sigma}{r_{ij}}\right)^{12} - \left( \frac{\sigma}{r_{ij}}\right)^{6} \right] $$
+
+On 
+
+\begin{itemize}
+	\item $r_{ij} = | r_i - r_j | $ és la distància entre partícules.
+	\item $\sigma$ defineix la mida de la partícula.
+	\item $\epsilon$ és la profunditat del potencial. És una mesura de la magnitud de la interacció.
+\end{itemize}
+
+The main goal of this project is to do a computer simulation of a Lennard-Jones liquid in order to be able to study its properties.
+
+A Lennard-Jones liquid is characterized by 2 parameters: $\epsilon$ and $\sigma$. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{lennard-jones_potential}
+	\caption{A Lennard-Jones potential.}
+	\label{fig:lennard-jonespotential}
+\end{figure}
+
+
 %(a) Describe in detail the different parts of the code. How do you initialize the system of particles (and set the density)? What integrator do you use? How do you implement periodic boundary conditions? How do you control the temperature (how do you implement the thermostat)? What units do you use for the Lennard-Jones interactions? What cut-off do you use for the interactions (and why)? What truncation strategy do you choose?
+
+The system is inicialized using a simple cubic structure. The desity is fixed in $\rho = 0.7 m\sigma^3$. 
 
 \end{document}
