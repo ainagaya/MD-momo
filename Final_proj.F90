@@ -2,18 +2,18 @@
 
 Program P3
 	Implicit none
-	real(8), parameter :: mass = 1, rho=0.7
-	real(8), parameter :: k_b = 1.380649e-23
-	integer, parameter :: N=125, Nsteps_ini = 2, Nsteps_prod = 500000
+	real(8), parameter :: mass = 1, rho=0.7, epsilon=1 , sigma=1 
+!	real(8), parameter :: k_b = 1.380649e-23
+	integer, parameter :: N=125, Nsteps_ini = 10000, Nsteps_prod = 500000
 	real(8), dimension(N, 3) :: r, r_ini, vel, vel_ini, r_out
 	integer :: step, i, dt_index
-	real(8) :: pot, K_energy, L, cutoff, sigma, M, a, Temp, inst_temp, dt, absV, p
-	real(8), dimension(7) :: dt_list
+	real(8) :: pot, K_energy, L, cutoff, M, a, Temp, inst_temp, dt, absV, p
+	real(8), dimension(5) :: dt_list
 	integer, allocatable :: seed(:)
 	integer :: nn
 	external inst_temp
 
-	dt_list = (/ 10e-1, 10e-2, 10e-3, 10e-4, 10e-5, 10e-6, 10e-7 /)
+	dt_list = (/ 1e-3, 1e-4, 1e-5, 1e-6, 1e-7/)
 
 	call random_seed(size=nn)
 	allocate(seed(nn))
@@ -23,14 +23,13 @@ Program P3
 
 	L = (N/rho)**(1./3.)
 	Temp = 100
-	sigma = Temp**(1.d0/2.d0)
 
 	M = N**(1./3.)
 	a = L/M
 
 	print*, L, M, a
 
-	cutoff = L
+	cutoff = 2.5
 
 	! """"
 	! ii) Initialize system and run simulation using velocity Verlet
@@ -38,8 +37,9 @@ Program P3
 	! """"
 	
 
-	! Initialize bimodal distrubution: v_i = +- sqrt(k_b T / m)
-	absV = (k_b * Temp / mass)**(1./2.)
+	! Initialize bimodal distrubution: v_i = +- sqrt(T' / m)
+	absV = (Temp / mass)**(1./2.)
+	print*, absV
 
 	open(22, file="vel_ini.dat")
 	
@@ -55,12 +55,13 @@ Program P3
 	open(44, file="energy_verlet.dat")
 
 	! Apply Verlet algorithm
-	do dt_index = 1, 7
+	do dt_index = 1, 5
 		dt = dt_list(dt_index)
 		write(44,*) ""
 		write(44,*) ""
 		write(44,*) "dt = ", dt
 
+		! We roll back to the initial positions and velocities to initialize
 		r = r_ini
 		vel = vel_ini
 
@@ -72,6 +73,7 @@ Program P3
 			p = (2*mass*K_energy)**(1./2.)
 			!print*, step, pot, K_energy, pot+K_energy, p
 			write(44,*) step, pot, K_energy, pot+K_energy, p
+		!	print*, K_energy
 			if (mod(step, 1000).eq.0) then
 				print*, real(step)/Nsteps_ini
 			end if
@@ -101,7 +103,7 @@ Program P3
 
 	open(45, file="energy_euler.dat")
 
-	do dt_index = 1, 7
+	do dt_index = 1, 5
 		dt = dt_list(dt_index)
 		write(45,*) ""
 		write(45,*) ""
@@ -219,20 +221,28 @@ Subroutine time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
 	real(8), dimension(N, 3) :: r, F, vel
 	real(8) :: dt, L, pot, cutoff
 	integer :: i, k
+	external pbc1, find_force_LJ
 
 	Call find_force_LJ(r, N, L, cutoff, F, pot)
+
 
 	do i = 1, N
 		do k = 1, 3
  			r(i, k) = r(i, k) + vel(i, k) * dt + 0.5*F(i, k)*dt*dt
-			call pbc1(r(i,k), L)
+ !			print*, i, k, r(i,k), F(i,k), vel(i,k)
+ 			
+ 			do while ((r(i,k).ge.L/2.).or.(r(i,k).le.(-L/2.)))
+				call pbc1(r(i,k), L)
+			end do
+			
 			vel(i, k) = vel(i, k) + F(i, k)* 0.5 * dt
 		end do
  	end do
 
 	Call find_force_LJ(r, N, L, cutoff, F, pot)
 
-	print*, F
+
+	! print*, F
 	do i = 1, N
 		do k = 1, 3
 			vel(i, k) = vel(i, k) + F(i, k)* 0.5 * dt
@@ -248,8 +258,14 @@ Subroutine pbc1(x, L)
 
 	if (x.ge.L/2.) then
 		x = x - L
+		if (abs(x).gt.1000) then
+			stop 
+		end if
  	else if (x.le.(-L/2.)) then
  		x = x + L
+		if (abs(x).gt.1000) then
+			stop
+		end if
  	end if
 
 	Return
@@ -259,7 +275,7 @@ Subroutine find_force_LJ(r, N, L, cutoff, F, pot)
 	Implicit none
 	real(8), dimension(N, 3), intent(in) :: r
 	real(8), intent(in) :: L, cutoff
-	real(8) :: dx, dy, dz, d
+	real(8) :: dx, dy, dz, d, f_ij
 	integer :: i, j, k
 	integer, intent(in) :: N
 	real(8), dimension(N, 3), intent(out) :: F
@@ -269,32 +285,42 @@ Subroutine find_force_LJ(r, N, L, cutoff, F, pot)
 	pot = 0.d0
 !	print*, L
 
-	do i = 1, N
-		do k = 1, 3
-			F(i,k) = 0.d0
-		end do
-	end do
+	F = 0.d0
 
 	do i = 1, N
 		do j = i+1, N
 			dx = r(i, 1) - r(j, 1)
 			dy = r(i, 2) - r(j, 2)
 			dz = r(i, 3) - r(j, 3)
-			call pbc1(dx, L)
-			call pbc1(dy, L)
-			call pbc1(dz, L)
+			do while ((dx.ge.L/2.).or.(dx.le.(-L/2.)))
+				call pbc1(dx, L)
+			end do
+			do while ((dy.ge.L/2.).or.(dy.le.(-L/2.)))
+				call pbc1(dy, L)
+			end do
+			do while ((dz.ge.L/2.).or.(dz.le.(-L/2.)))
+				call pbc1(dz, L)
+			end do 
 	!		print*, i, j, "dx:", dx, dy, dz
 			d = (dx**2+dy**2+dz**2)**(1.d0/2.d0)
+		!	print*, "DEBUG3:", d
+
 			if (d.le.cutoff) then
-				F(i,1) = F(i,1) + (48.d0 / d**14 - 24.d0 / d**8)*dx
-				F(i,2) = F(i,2) + (48.d0 / d**14 - 24.d0 / d**8)*dy
-				F(i,3) = F(i,3) + (48.d0 / d**14 - 24.d0 / d**8)*dz
-				F(j,1) = F(j,1) - (48.d0 / d**14 - 24.d0 / d**8)*dx
-				F(j,2) = F(j,2) - (48.d0 / d**14 - 24.d0 / d**8)*dy
-				F(j,3) = F(j,3) - (48.d0 / d**14 - 24.d0 / d**8)*dz
+				f_ij = 48.d0 / d**14 - 24.d0 / d**8
+			!	print*, "DEBUG4:", f_ij
+				F(i,1) = F(i,1) + f_ij*dx
+				F(i,2) = F(i,2) + f_ij*dy
+				F(i,3) = F(i,3) + f_ij*dz
+				F(j,1) = F(j,1) - f_ij*dx
+				F(j,2) = F(j,2) - f_ij*dy
+				F(j,3) = F(j,3) - f_ij*dz
+
 				pot = pot + 4.d0*( 1.d0/ d**12 - 1.d0 /d**6) - 4.d0*( 1/ cutoff**12 - 1.d0 /cutoff**6)
 	!			print*, j, F(i,1), d, dx, (48 / d**14 - 24 / d**8)*dx
+			!	print*, "DEBUG1: ", 4.d0*( 1.d0/ d**12 - 1.d0 /d**6)
+			!	print*, "DEBUG2: ", 4.d0*( 1/ cutoff**12 - 1.d0 /cutoff**6)
 			end if 
+
 !			print*, i, j, dx, dy, dz, d, F(j, :)
 
 		end do
@@ -332,7 +358,8 @@ Function inst_temp(N, K_energy)
 	real(8) :: K_energy, inst_temp
 
 	N_f = 3*N - 3
-	inst_temp = 2.d0/(N_f * k_b)*K_energy
+	! inst_temp = 2.d0/(N_f * k_b)*K_energy
+	inst_temp = 2.d0/(N_f)*K_energy
 	Return
 End Function
 
@@ -357,9 +384,19 @@ Subroutine time_step_Euler_pbc(r_in, r_out, vel, N, L, cutoff, dt, pot)
 		vel(i, 1) = vel(i, 1) + F(i, 1) * dt
 		vel(i, 2) = vel(i, 2) + F(i, 2) * dt
 		vel(i, 3) = vel(i, 3) + F(i, 3) * dt
-		call pbc1(r_out(i,1), L)
-		call pbc1(r_out(i,2), L)
-		call pbc1(r_out(i,3), L)
+
+		do while ((r_out(i,1).ge.L/2.).or.(r_out(i,1).le.(-L/2.)))
+			call pbc1(r_out(i,1), L)
+		end do
+		
+		do while ((r_out(i,2).ge.L/2.).or.(r_out(i,2).le.(-L/2.)))
+			call pbc1(r_out(i,2), L)
+		end do
+
+		do while ((r_out(i,3).ge.L/2.).or.(r_out(i,3).le.(-L/2.)))
+			call pbc1(r_out(i,3), L)
+		end do
+
 	end do
 
 End Subroutine
