@@ -56,7 +56,7 @@ Program P3
 	open(77, file="Temperatures.dat")
 
 	tini = 0
-	tfin = 100
+	tfin = 10
 
 	! Apply Verlet algorithm
 	do dt_index = 1, 3
@@ -153,56 +153,20 @@ Program P3
 
 End Program
 
-
-Subroutine therm_Andersen(vel, nu, sigma, N)
-	Implicit none
-	integer :: i, N
-	real(8) :: rand, nu, sigma
-	real(8), dimension(N, 3) :: vel
-	real(8), dimension(2) :: xnums
-
- 	do i = 1, N
- 		call random_number(rand)
- 		if (rand.lt.nu) then
- 			call BM(2, xnums, sigma)
- 			!print*, "xnums: ", xnums
- 			vel(i, 1) = xnums(1)
- 			vel(i, 2) = xnums(2)
- 			call BM(2, xnums, sigma)
- 			vel(i, 3) = xnums(1)
-		end if
-	end do
-!	print*, vel
-End Subroutine
-
-
-Subroutine BM(ndat,xnums,sigma)
-    Implicit none
-    Integer ::  ndat, i
-    real(8), dimension(ndat) :: xnums
-    real(8) :: r, phi, x1, x2, sigma
-    real(8), parameter :: pi = 4.d0*atan(1.d0)
-!     ATENCIÓ! Es generen 2ndat numeros
-    Do i = 1, ndat, 2
-        r = sqrt(-2.d0*log(1.d0-rand()))
-        phi = 2.d0*pi*rand()
-        x1 = r*cos(phi)
-        x2 = r*sin(phi)
-        if (i.ne.ndat) then ! Ens assegurem que no haguem acabat la llista
-    	    xnums(i) = x1*sigma
-            xnums(i+1) = x2*sigma
-        endif
-    end do
-    return
-end Subroutine
+!########################################################################################################
 
 Subroutine initialize_positions(N, rho, r)
+! """"
+! Calculates the positions r of N particles in a SC structure
+! INPUTS: N, rho
+! OUTPUT: r(N, 3)
+! """"
 	Implicit none
 	integer, intent(in) :: N
-	real(8), dimension(N, 3), intent(out) :: r
-	real(8) :: L, a, x, y, z
-	integer :: M, i, j, k, particle
 	real(8), intent(in) :: rho
+	real(8), dimension(N, 3), intent(out) :: r
+	real(8) :: L, a, x, y, z, ini
+	integer :: M, i, j, k, particle
 
 	L = (N/rho)**(1./3.)
 
@@ -212,18 +176,21 @@ Subroutine initialize_positions(N, rho, r)
 
 	! Set the position of every particle
 	particle = 1
+	ini = -L/2.d0
 	do i = 1, M
 		do j = 1, M
 			do k = 1, M
-				x = i*a
-				y = j*a
-				z = k*a
+				x = ini + i*a
+				y = ini + j*a
+				z = ini + k*a
 				r(particle, :) = (/x, y, z/)
 				particle = particle + 1
 			end do
 		end do
 	end do
 End Subroutine
+
+!########################################################################################################
 
 Subroutine time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
 	Implicit none
@@ -239,7 +206,6 @@ Subroutine time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
 	do i = 1, N
 		do k = 1, 3
  			r(i, k) = r(i, k) + vel(i, k) * dt + 0.5*F(i, k)*dt*dt
- !			print*, i, k, r(i,k), F(i,k), vel(i,k)
  			
  			do while ((r(i,k).ge.L/2.).or.(r(i,k).le.(-L/2.)))
 				call pbc1(r(i,k), L)
@@ -251,8 +217,6 @@ Subroutine time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
 
 	Call find_force_LJ(r, N, L, cutoff, F, pot)
 
-
-	! print*, F
 	do i = 1, N
 		do k = 1, 3
 			vel(i, k) = vel(i, k) + F(i, k)* 0.5 * dt
@@ -261,6 +225,7 @@ Subroutine time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
 
 End Subroutine
 
+!########################################################################################################
 
 Subroutine pbc1(x, L)
 	Implicit none
@@ -281,11 +246,14 @@ Subroutine pbc1(x, L)
 	Return
 End Subroutine
 
+!########################################################################################################
+
 Subroutine find_force_LJ(r, N, L, cutoff, F, pot)
 	Implicit none
 	real(8), dimension(N, 3), intent(in) :: r
 	real(8), intent(in) :: L, cutoff
-	real(8) :: dx, dy, dz, d, f_ij
+	real(8) :: d, f_ij
+	real(8), dimension(3) :: d_r
 	integer :: i, j, k
 	integer, intent(in) :: N
 	real(8), dimension(N, 3), intent(out) :: F
@@ -293,56 +261,41 @@ Subroutine find_force_LJ(r, N, L, cutoff, F, pot)
 	external pbc1
 
 	pot = 0.d0
-!	print*, L
 
 	F = 0.d0
 
 	do i = 1, N
 		do j = i+1, N
-			dx = r(i, 1) - r(j, 1)
-			dy = r(i, 2) - r(j, 2)
-			dz = r(i, 3) - r(j, 3)
-			do while ((dx.ge.L/2.).or.(dx.le.(-L/2.)))
-				call pbc1(dx, L)
+			d_r(:) = r(i, :) - r(j, :)
+
+			do while ((d_r(1).ge.L/2.).or.(dx.le.(-L/2.)))
+				call pbc1(d_r(1), L)
 			end do
-			do while ((dy.ge.L/2.).or.(dy.le.(-L/2.)))
-				call pbc1(dy, L)
+			do while ((d_r(2).ge.L/2.).or.(dy.le.(-L/2.)))
+				call pbc1(d_r(2), L)
 			end do
-			do while ((dz.ge.L/2.).or.(dz.le.(-L/2.)))
-				call pbc1(dz, L)
+			do while ((d_r(3).ge.L/2.).or.(dz.le.(-L/2.)))
+				call pbc1(d_r(3), L)
 			end do 
-	!		print*, i, j, "dx:", dx, dy, dz
-			d = (dx**2+dy**2+dz**2)**(1.d0/2.d0)
-		!	print*, "DEBUG3:", d
+
+			d = (d_r(1)**2+d_r(2)**2+d_r(3)**2)**(1.d0/2.d0)
 
 			if (d.le.cutoff) then
 				f_ij = 48.d0 / d**14 - 24.d0 / d**8
-			!	print*, "DEBUG4:", f_ij
-				F(i,1) = F(i,1) + f_ij*dx
-				F(i,2) = F(i,2) + f_ij*dy
-				F(i,3) = F(i,3) + f_ij*dz
-				F(j,1) = F(j,1) - f_ij*dx
-				F(j,2) = F(j,2) - f_ij*dy
-				F(j,3) = F(j,3) - f_ij*dz
+				F(i,:) = F(i,:) + f_ij*d_r(:)
+				F(j,:) = F(j,:) + f_ij*d_r(:)
 
 				pot = pot + 4.d0*( 1.d0/ d**12 - 1.d0 /d**6) - 4.d0*( 1/ cutoff**12 - 1.d0 /cutoff**6)
-	!			print*, j, F(i,1), d, dx, (48 / d**14 - 24 / d**8)*dx
-			!	print*, "DEBUG1: ", 4.d0*( 1.d0/ d**12 - 1.d0 /d**6)
-			!	print*, "DEBUG2: ", 4.d0*( 1/ cutoff**12 - 1.d0 /cutoff**6)
+
 			end if 
 
-!			print*, i, j, dx, dy, dz, d, F(j, :)
-
 		end do
-	!	print*, F(i,1)
 	end do
-
-	!do i = 1, N
-	!	print*, F(i, :)
-	!end do
 
 
 End Subroutine
+
+!########################################################################################################
 
 Subroutine kinetic_energy(vel, K_energy, N)
 	Implicit none
@@ -364,7 +317,7 @@ End Subroutine
 Function inst_temp(N, K_energy)
 	Implicit none
 	integer :: N, N_f
-	real(8), parameter :: k_b = 1.380649e-23
+!	real(8), parameter :: k_b = 1.380649e-23
 	real(8) :: K_energy, inst_temp
 
 	N_f = 3*N - 3
@@ -373,6 +326,7 @@ Function inst_temp(N, K_energy)
 	Return
 End Function
 
+!########################################################################################################
 
 Subroutine time_step_Euler_pbc(r_in, r_out, vel, N, L, cutoff, dt, pot)
  	Implicit none
@@ -388,12 +342,8 @@ Subroutine time_step_Euler_pbc(r_in, r_out, vel, N, L, cutoff, dt, pot)
 
 
  	do i = 1, N
-		r_out(i, 1) = r_in(i, 1) + vel(i, 1) * dt + 0.5*F(i, 1)*dt*dt
-		r_out(i, 2) = r_in(i, 2) + vel(i, 2) * dt + 0.5*F(i, 2)*dt*dt
-		r_out(i, 3) = r_in(i, 3) + vel(i, 3) * dt + 0.5*F(i, 3)*dt*dt
-		vel(i, 1) = vel(i, 1) + F(i, 1) * dt
-		vel(i, 2) = vel(i, 2) + F(i, 2) * dt
-		vel(i, 3) = vel(i, 3) + F(i, 3) * dt
+ 		r_out(i, :) = r_in(i, :) + vel(i, :) * dt + 0.5*F(i, :)*dt*dt
+ 		vel(i, :) = vel(i, :) + F(i, :) * dt
 
 		do while ((r_out(i,1).ge.L/2.).or.(r_out(i,1).le.(-L/2.)))
 			call pbc1(r_out(i,1), L)
@@ -410,6 +360,8 @@ Subroutine time_step_Euler_pbc(r_in, r_out, vel, N, L, cutoff, dt, pot)
 	end do
 
 End Subroutine
+
+!###########################################################################################################
 
 Subroutine initialize_velocities(N, absV, vel)
 	Implicit none
