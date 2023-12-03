@@ -1,6 +1,6 @@
 
 
-Program P3
+Program P_final_a
 	Implicit none
 	real(8), parameter :: mass = 1, rho=0.7, epsilon=1 , sigma=1 
 !	real(8), parameter :: k_b = 1.380649e-23
@@ -44,10 +44,6 @@ Program P3
 	
 	call initialize_positions(N, rho, r_ini)
 
-	do i = 1,N
-		print*, i, r_ini(i,:)
-	end do
-
 	call initialize_velocities(N, absV, vel_ini)
 
 	do i=1,N
@@ -60,7 +56,7 @@ Program P3
 	open(77, file="Temperatures.dat")
 
 	tini = 0
-	tfin = 0.01
+	tfin = 1
 
 	! Apply Verlet algorithm
 	do dt_index = 1, 3
@@ -82,7 +78,8 @@ Program P3
 		!	print*, r, vel
 			call kinetic_energy(vel, K_energy, N)
 			! Momentum p = m*v
-			p = (2*mass*K_energy)**(1./2.)
+			call momentum(vel, p, N)
+			!p = (2*mass*K_energy)**(1./2.)
 			!print*, step, pot, K_energy, pot+K_energy, p
 			write(44,*) step*dt, pot, K_energy, pot+K_energy, p
 		!	print*, K_energy
@@ -112,6 +109,9 @@ Program P3
 	! 
 	! """"
 
+	dt_list = (/ 1e-3, 1e-4, 1e-5/)
+
+
 	! Initialize again, now to apply Euler method
 	! Apply Euler algorithm
 
@@ -134,8 +134,10 @@ Program P3
 			call time_step_Euler_pbc(r, r_out, vel, N, L, cutoff, dt, pot)
 			call kinetic_energy(vel, K_energy, N)
 			! Momentum p = m*v
-			p = (2*mass*K_energy)**(1./2.)
-			write(45,*) step, pot, K_energy, pot+K_energy, p
+			!p = (2*mass*K_energy)**(1./2.)
+			call momentum(vel, p, N)
+
+			write(45,*) step*dt, pot, K_energy, pot+K_energy, p
 			if (mod(step, 1000).eq.0) then
 				print*, real(step)/Nsteps
 			end if
@@ -204,31 +206,29 @@ Subroutine time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
 	integer, intent(in) :: N
 	real(8), dimension(N, 3) :: r, F, vel
 	real(8) :: dt, L, pot, cutoff
-	integer :: i, k
-	external pbc1, find_force_LJ
+	integer :: i
+	external pbc, find_force_LJ
 
 	Call find_force_LJ(r, N, L, cutoff, F, pot)
 
 
 	do i = 1, N
-		do k = 1, 3
- 			r(i, k) = r(i, k) + vel(i, k) * dt + 0.5*F(i, k)*dt*dt
+ 		r(i, :) = r(i, :) + vel(i, :) * dt + 0.5*F(i, :)*dt*dt
  			
- 			do while ((r(i,k).gt.L/2.).or.(r(i,k).lt.(-L/2.)))
-				call pbc1(r(i,k), L)
-			end do
-			
-			vel(i, k) = vel(i, k) + F(i, k)* 0.5 * dt
+		do while (any(r(i,:) > L/2.) .or. any(r(i,:) < -L/2.))
+    		! Apply periodic boundary conditions using the pbc subroutine
+    		call pbc(r(i,:), L, size(r(i,:)))
 		end do
+
+			
+		vel(i, :) = vel(i, :) + F(i, :)* 0.5 * dt
  	end do
 
 	Call find_force_LJ(r, N, L, cutoff, F, pot)
 
 	do i = 1, N
-		do k = 1, 3
-			vel(i, k) = vel(i, k) + F(i, k)* 0.5 * dt
-		end do
- 	end do
+		vel(i, :) = vel(i, :) + F(i, :)* 0.5 * dt
+	end do
 
 End Subroutine
 
@@ -255,6 +255,34 @@ End Subroutine
 
 !########################################################################################################
 
+Subroutine pbc(vector, L, D)
+	Implicit none
+	integer :: D, i
+	real(8), dimension(D), intent(inout) :: vector
+	real(8), intent(in) :: L
+
+
+	do i = 1, D
+		if (vector(i).gt.L/2.) then
+			vector(i) = vector(i) - L
+			if (abs(vector(i)).gt.1000) then
+				print*, "YOU HAVE INESTABILITIES!"
+				stop 
+			end if
+ 		else if (vector(i).lt.(-L/2.)) then
+ 			vector(i) = vector(i) + L
+			if (abs(vector(i)).gt.1000) then
+				print*, "YOU HAVE INESTABILITIES!"
+				stop
+			end if
+ 		end if
+ 	end do
+
+	Return
+End Subroutine
+
+!########################################################################################################
+
 Subroutine find_force_LJ(r, N, L, cutoff, F, pot)
 	Implicit none
 	real(8), dimension(N, 3), intent(in) :: r
@@ -265,7 +293,7 @@ Subroutine find_force_LJ(r, N, L, cutoff, F, pot)
 	integer, intent(in) :: N
 	real(8), dimension(N, 3), intent(out) :: F
 	real(8), intent(out) :: pot
-	external pbc1
+	external pbc
 
 	pot = 0.d0
 
@@ -276,15 +304,10 @@ Subroutine find_force_LJ(r, N, L, cutoff, F, pot)
 			d_r(:) = r(i, :) - r(j, :)
 !			print*, r(i, :) - r(j, :)
 
-			do while ((d_r(1).gt.L/2.).or.(d_r(1).lt.(-L/2.)))
-				call pbc1(d_r(1), L)
+			do while (any(d_r(:).gt.L/2.).or.(any(d_r(:).lt.(-L/2.))))
+				call pbc(d_r, L, size(d_r))
 			end do
-			do while ((d_r(2).gt.L/2.).or.(d_r(2).lt.(-L/2.)))
-				call pbc1(d_r(2), L)
-			end do
-			do while ((d_r(3).gt.L/2.).or.(d_r(3).lt.(-L/2.)))
-				call pbc1(d_r(3), L)
-			end do 
+
 
 			d = (d_r(1)**2+d_r(2)**2+d_r(3)**2)**(1.d0/2.d0)
 			if (d.le.cutoff) then
@@ -359,17 +382,10 @@ Subroutine time_step_Euler_pbc(r_in, r_out, vel, N, L, cutoff, dt, pot)
  		r_out(i, :) = r_in(i, :) + vel(i, :) * dt + 0.5*F(i, :)*dt*dt
  		vel(i, :) = vel(i, :) + F(i, :) * dt
 
-		do while ((r_out(i,1).gt.L/2.).or.(r_out(i,1).lt.(-L/2.)))
-			call pbc1(r_out(i,1), L)
+		do while (any(r_out(i,:).gt.L/2.).or.(any(r_out(i,:).lt.(-L/2.))))
+			call pbc(r_out, L, size(r_out))
 		end do
 		
-		do while ((r_out(i,2).gt.L/2.).or.(r_out(i,2).lt.(-L/2.)))
-			call pbc1(r_out(i,2), L)
-		end do
-
-		do while ((r_out(i,3).gt.L/2.).or.(r_out(i,3).lt.(-L/2.)))
-			call pbc1(r_out(i,3), L)
-		end do
 
 	end do
 
@@ -394,6 +410,29 @@ Subroutine initialize_velocities(N, absV, vel)
 			end if
 		end do
 	end do
+
+
+End Subroutine
+
+
+!#############################################################
+
+Subroutine momentum(vel, p, N)
+	Implicit none
+	real(8), dimension(N, 3) :: vel
+	real(8), dimension(3) :: total_p
+	integer :: N, i
+	real(8), intent(out) :: p 
+
+	total_p(:) = 0
+
+	! Accumulate p
+	do i = 1,N
+		total_p(:) = total_p(:) + vel(i, :)
+	end do
+
+	! Produce the module
+	p = ( total_p(1)**2 + total_p(2)**2 + total_p(3)**2 )**(1./2.) 
 
 
 End Subroutine
