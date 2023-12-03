@@ -13,7 +13,7 @@ Program P3
 	integer :: nn
 	external inst_temp
 
-	dt_list = (/ 1e-3, 1e-5, 1e-7/)
+	dt_list = (/ 1e-3, 1e-4, 1e-5/)
 
 	call random_seed(size=nn)
 	allocate(seed(nn))
@@ -25,7 +25,7 @@ Program P3
 	Temp = 100
 
 	M = N**(1./3.)
-	a = L/M
+	a = L/(M)
 
 	print*, L, M, a
 
@@ -35,7 +35,6 @@ Program P3
 	! ii) Initialize system and run simulation using velocity Verlet
 	! 
 	! """"
-	
 
 	! Initialize bimodal distrubution: v_i = +- sqrt(T' / m)
 	absV = (Temp / mass)**(1./2.)
@@ -44,6 +43,11 @@ Program P3
 	open(22, file="vel_ini.dat")
 	
 	call initialize_positions(N, rho, r_ini)
+
+	do i = 1,N
+		print*, i, r_ini(i,:)
+	end do
+
 	call initialize_velocities(N, absV, vel_ini)
 
 	do i=1,N
@@ -56,7 +60,7 @@ Program P3
 	open(77, file="Temperatures.dat")
 
 	tini = 0
-	tfin = 10
+	tfin = 0.01
 
 	! Apply Verlet algorithm
 	do dt_index = 1, 3
@@ -67,11 +71,13 @@ Program P3
 
 		Nsteps = int((tfin - tini)/dt)
 
+
 		! We roll back to the initial positions and velocities to initialize
 		r = r_ini
 		vel = vel_ini
 
 		do step = 1,Nsteps
+
 			call time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
 		!	print*, r, vel
 			call kinetic_energy(vel, K_energy, N)
@@ -172,14 +178,15 @@ Subroutine initialize_positions(N, rho, r)
 
 	M = N**(1./3.)
 	
-	a = L/M
+	a = L/(M)
 
 	! Set the position of every particle
 	particle = 1
 	ini = -L/2.d0
-	do i = 1, M
-		do j = 1, M
-			do k = 1, M
+	! ini = 0.d0
+	do i = 0, M-1
+		do j = 0, M-1
+			do k = 0, M-1
 				x = ini + i*a
 				y = ini + j*a
 				z = ini + k*a
@@ -207,7 +214,7 @@ Subroutine time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
 		do k = 1, 3
  			r(i, k) = r(i, k) + vel(i, k) * dt + 0.5*F(i, k)*dt*dt
  			
- 			do while ((r(i,k).ge.L/2.).or.(r(i,k).le.(-L/2.)))
+ 			do while ((r(i,k).gt.L/2.).or.(r(i,k).lt.(-L/2.)))
 				call pbc1(r(i,k), L)
 			end do
 			
@@ -231,12 +238,12 @@ Subroutine pbc1(x, L)
 	Implicit none
 	real(8) :: x, L
 
-	if (x.ge.L/2.) then
+	if (x.gt.L/2.) then
 		x = x - L
 		if (abs(x).gt.1000) then
 			stop 
 		end if
- 	else if (x.le.(-L/2.)) then
+ 	else if (x.lt.(-L/2.)) then
  		x = x + L
 		if (abs(x).gt.1000) then
 			stop
@@ -267,23 +274,30 @@ Subroutine find_force_LJ(r, N, L, cutoff, F, pot)
 	do i = 1, N
 		do j = i+1, N
 			d_r(:) = r(i, :) - r(j, :)
+!			print*, r(i, :) - r(j, :)
 
-			do while ((d_r(1).ge.L/2.).or.(dx.le.(-L/2.)))
+			do while ((d_r(1).gt.L/2.).or.(d_r(1).lt.(-L/2.)))
 				call pbc1(d_r(1), L)
 			end do
-			do while ((d_r(2).ge.L/2.).or.(dy.le.(-L/2.)))
+			do while ((d_r(2).gt.L/2.).or.(d_r(2).lt.(-L/2.)))
 				call pbc1(d_r(2), L)
 			end do
-			do while ((d_r(3).ge.L/2.).or.(dz.le.(-L/2.)))
+			do while ((d_r(3).gt.L/2.).or.(d_r(3).lt.(-L/2.)))
 				call pbc1(d_r(3), L)
 			end do 
 
 			d = (d_r(1)**2+d_r(2)**2+d_r(3)**2)**(1.d0/2.d0)
-
 			if (d.le.cutoff) then
 				f_ij = 48.d0 / d**14 - 24.d0 / d**8
+!				print*, d_r
 				F(i,:) = F(i,:) + f_ij*d_r(:)
-				F(j,:) = F(j,:) + f_ij*d_r(:)
+				F(j,:) = F(j,:) - f_ij*d_r(:)
+
+
+				if (isnan(F(i,1))) then
+					print*, i, j
+					stop
+				end if
 
 				pot = pot + 4.d0*( 1.d0/ d**12 - 1.d0 /d**6) - 4.d0*( 1/ cutoff**12 - 1.d0 /cutoff**6)
 
@@ -345,15 +359,15 @@ Subroutine time_step_Euler_pbc(r_in, r_out, vel, N, L, cutoff, dt, pot)
  		r_out(i, :) = r_in(i, :) + vel(i, :) * dt + 0.5*F(i, :)*dt*dt
  		vel(i, :) = vel(i, :) + F(i, :) * dt
 
-		do while ((r_out(i,1).ge.L/2.).or.(r_out(i,1).le.(-L/2.)))
+		do while ((r_out(i,1).gt.L/2.).or.(r_out(i,1).lt.(-L/2.)))
 			call pbc1(r_out(i,1), L)
 		end do
 		
-		do while ((r_out(i,2).ge.L/2.).or.(r_out(i,2).le.(-L/2.)))
+		do while ((r_out(i,2).gt.L/2.).or.(r_out(i,2).lt.(-L/2.)))
 			call pbc1(r_out(i,2), L)
 		end do
 
-		do while ((r_out(i,3).ge.L/2.).or.(r_out(i,3).le.(-L/2.)))
+		do while ((r_out(i,3).gt.L/2.).or.(r_out(i,3).lt.(-L/2.)))
 			call pbc1(r_out(i,3), L)
 		end do
 
