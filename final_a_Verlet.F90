@@ -77,7 +77,7 @@ Program P_final_a
 
 		do step = 1,Nsteps
 
-			call time_step_vVerlet(r, vel, pot, N, L, cutoff, dt, F)
+			call time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
 			call kinetic_energy(vel, K_energy, N)
 			call momentum(vel, p, N)
 			write(44,*) step*dt, pot, K_energy, pot+K_energy, p

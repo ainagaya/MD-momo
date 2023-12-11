@@ -26,7 +26,7 @@ Program P_final_b
 	Implicit none
 	real(8), parameter :: nu = 0.1, mass = 40, epsilon=0.998 , sigma=3.4 
 !	real(8), parameter :: k_b = 1.380649e-23
-	integer, parameter :: N=125, Nsteps_ini = 100, Nsteps_prod = 5000
+	integer, parameter :: N=125, Nsteps_ini = 10000, Nsteps_prod = 150000
 	real(8), dimension(N, 3) :: r, r_ini, vel, vel_ini, r_out, F, r_0
 	integer :: step, i, rho_index, Nsteps
 	real(8) :: pot, K_energy, L, cutoff, M, a, Temp, dt, absV, p, tini, tfin, rho, sigma_gaussian, MSD
@@ -34,7 +34,8 @@ Program P_final_b
 	real(8), dimension(6) :: rho_list
 	integer, allocatable :: seed(:)
 	integer :: nn
-	real(8) :: acc_kin, acc_pot, acc_total
+	real(8) :: acc_kin, acc_pot, acc_total, P_total
+	character(len=4) :: rho_str
 
 	rho_list = (/ 0.05, 0.1, 0.2, 0.4, 0.6, 0.8 /)
 
@@ -51,10 +52,13 @@ Program P_final_b
 
 	do rho_index = 1, 6
 
-		open(66, file = "thermodynamics_" // char(rho_index) // ".dat")
-
 		! system inicialization
 		rho = rho_list(rho_index)
+
+		write(rho_str,'(F4.2)') rho
+
+		
+		open(66, file = "thermodynamics_" // rho_str // ".dat")
 
 		Temp = 100
 		sigma_gaussian = Temp**(1.d0/2.d0)
@@ -91,10 +95,10 @@ Program P_final_b
 			call time_step_vVerlet(r, vel, pot, N, L, cutoff, dt, F)
 		!	call therm_Andersen(vel, nu, sigma_gaussian, N)
 			call kinetic_energy(vel, K_energy, N)
-			write(44,*) step, pot, K_energy, pot+K_energy
 			!print*, real(step)/Nsteps
 			if (mod(step, 1000).eq.0) then
 				print*, real(step)/Nsteps_ini
+				write(44,*) step, pot, K_energy, pot+K_energy
 			end if
 		end do
 
@@ -114,6 +118,7 @@ Program P_final_b
 		acc_kin = 0.d0
 		acc_pot = 0.d0
 		acc_total = 0.d0
+		P_total = 0.d0
 
 		do step = 1,Nsteps_prod
 			call time_step_vVerlet(r, vel, pot, N, L, cutoff, dt, F)
@@ -123,23 +128,22 @@ Program P_final_b
 			T_inst = inst_temp(N, K_energy)
 			P_inst = preassure(N, r, F, rho, T_inst, L, cutoff)
 
-			write(55,*) step, pot, K_energy, pot+K_energy, T_inst, MSD
-
 			acc_kin = acc_kin + K_energy
 			acc_pot = acc_pot + pot
 			acc_total = acc_total + K_energy + pot
-
-
+			P_total = P_total + P_inst
 
 			!print*, real(step)/Nsteps
 			if (mod(step, 1001).eq.0) then
 				
 				print*, real(step)/Nsteps_prod
-				write(66, *) rho, acc_kin/1000, acc_pot/1000, acc_total/1000
+				write(66, *) rho, acc_kin/1000, acc_pot/1000, acc_total/1000, rho*Temp + P_total/1000
+				write(55,*) step, pot, K_energy, pot+K_energy, T_inst, MSD
 
 				acc_kin = 0.d0
 				acc_pot = 0.d0
 				acc_total = 0.d0
+				P_total = 0.d0
 
 			end if
 

@@ -47,15 +47,21 @@ End Subroutine
 
 !########################################################################################################
 
-Subroutine time_step_vVerlet(r, vel, pot, N, L, cutoff, dt, F)
+Subroutine time_step_vVerlet(r, vel, pot, N, L, cutoff, dt)
+! """"
+! Calculates a timestep using the velicity verlet algorithm
+! INPUTS: r, vel, N, L, cutoff, dt
+! OUTPUT: r, vel, pot
+! """"
 	Implicit none
 	integer, intent(in) :: N
-	real(8), dimension(N, 3) :: r, F, vel
-	real(8) :: dt, L, pot, cutoff
+	real(8), dimension(N, 3), intent(inout) :: r, vel
+	real(8), intent(in) :: dt, L, cutoff
+	real(8), dimension(N, 3) :: F
+	real(8), intent(out) ::  pot
 	integer :: i
 
 	Call find_force_LJ(r, N, L, cutoff, F, pot)
-
 
 	do i = 1, N
  		r(i, :) = r(i, :) + vel(i, :) * dt + 0.5*F(i, :)*dt*dt
@@ -76,15 +82,20 @@ Subroutine time_step_vVerlet(r, vel, pot, N, L, cutoff, dt, F)
 	end do
 
 
-
 End Subroutine
 
 
 !########################################################################################################
 
 Subroutine pbc(vector, L, D)
+! """"
+! Applies periodic boundary conditions to a N-dimensional system
+! INPUTS: vector, L, D (dimension of the system)
+! OUTPUT: vector
+! """"
 	Implicit none
-	integer :: D, i
+	integer :: i
+	integer, intent(in) :: D
 	real(8), dimension(D), intent(inout) :: vector
 	real(8), intent(in) :: L
 
@@ -111,6 +122,11 @@ End Subroutine
 !########################################################################################################
 
 Subroutine find_force_LJ(r, N, L, cutoff, F, pot)
+! """"
+! Calculates the forces applied to each particle of the system
+! INPUTS: r, Nm L, cutoff, F
+! OUTPUT: pot, F
+! """"
 	Implicit none
 	real(8), dimension(N, 3), intent(in) :: r
 	real(8), intent(in) :: L, cutoff
@@ -153,6 +169,7 @@ Subroutine find_force_LJ(r, N, L, cutoff, F, pot)
 		end do
 	end do
 
+	preassure = F*d_r
 
 End Subroutine
 
@@ -273,7 +290,6 @@ Function preassure(N, r, f, rho, T, L, cutoff)
 	real(8) :: suma, preassure, T, L, rho, d, cutoff, f_ij
 	real(8), dimension(N,3) :: r, f
 	real(8), dimension(3) :: r_ij
-!!!!!!! ACABAR
 
 	suma = 0
 
@@ -296,7 +312,7 @@ Function preassure(N, r, f, rho, T, L, cutoff)
 
 	!average = sum / (N*N) !aquest average es temporal!!
 
-	preassure = rho*T + (3*L**3)**(-1)*suma
+	preassure = (3*L**3)**(-1)*suma
 
 
 end Function
@@ -334,7 +350,7 @@ Subroutine therm_Andersen(vel, nu, sigma_gaussian, N)
 	real(8), dimension(2) :: xnums
 
  	do i = 1, N
- 		call random_number(rand)
+ 		call random_number(rand) 
  		if (rand.lt.nu) then
  			call BM(2, xnums, sigma_gaussian)
  			!print*, "xnums: ", xnums
