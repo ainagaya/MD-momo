@@ -169,8 +169,6 @@ Subroutine find_force_LJ(r, N, L, cutoff, F, pot)
 		end do
 	end do
 
-	preassure = F*d_r
-
 End Subroutine
 
 !########################################################################################################
@@ -284,11 +282,11 @@ End Subroutine
 
 ! ##################################################################
 
-Function preassure(N, r, f, rho, T, L, cutoff)
+Function W(N, r, rho, T, L, cutoff)
 	Implicit none
 	integer :: N, i, j, step
-	real(8) :: suma, preassure, T, L, rho, d, cutoff, f_ij
-	real(8), dimension(N,3) :: r, f
+	real(8) :: suma, W, T, L, rho, d, cutoff, f_ij
+	real(8), dimension(N,3) :: r
 	real(8), dimension(3) :: r_ij
 
 	suma = 0
@@ -303,16 +301,17 @@ Function preassure(N, r, f, rho, T, L, cutoff)
 
 			d = (r_ij(1)**2+r_ij(2)**2+r_ij(3)**2)**(1.d0/2.d0)
 			if (d.le.cutoff) then
-				f_ij = 48.d0 / d**14 - 24.d0 / d**8
-				suma = suma + sum(f_ij*r_ij)
+				f_ij = 48.d0 / d**13 - 24.d0 / d**7
+			!	print*, "f", f_ij
+				suma = suma + f_ij*d
 			end if 
 
 		end do
 	end do
 
-	!average = sum / (N*N) !aquest average es temporal!!
+	! average = sum / (N*N)
 
-	preassure = (3*L**3)**(-1)*suma
+	W = (1./3.)*suma
 
 
 end Function
@@ -324,15 +323,16 @@ Subroutine mean_sq_distance(r, r_0, N, MSD)
 	integer, intent(in) :: N
 	real(8), dimension(N, 3), intent(in) :: r, r_0
 	real(8), intent(out) :: MSD
-	real(8) :: r_module, r_0_module
+	real(8), dimension(3) :: resta
+	real(8) :: modul_2
 	integer :: i
 
 	MSD = 0.d0
 
 	do i = 1, N
-		r_module = (r(i,1)**2 + r(i,2)**2 + r(i,3)**2)**2
-		r_0_module =  (r_0(i,1)**2 + r_0(i,2)**2 + r_0(i,3)**2)**2
- 		MSD = MSD + (r_module - r_0_module)
+		resta = r(i,:) - r_0(i,:)
+		modul_2 = resta(1)**2 + resta(2)**2 + resta(3)**2
+ 		MSD = MSD + modul_2
  	end do
 
 	MSD = MSD/N

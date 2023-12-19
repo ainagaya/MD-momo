@@ -19,9 +19,114 @@
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \babel@aux{english}{}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction: Molecular Dynamics Simulations code}{1}{section.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}A system of N particles interacting through a Lennard-Jones potential in contact with a heat bath}{1}{subsection.1.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces A Lennard-Jones potential.\relax }}{2}{figure.caption.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introducció: Simulacions de dinàmica molecular}{1}{section.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Potencial de Lennard-Jones.\relax }}{2}{figure.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:lennard-jonespotential}{{1}{2}{A Lennard-Jones potential.\relax }{figure.caption.1}{}}
-\gdef \@abspage@last{2}
+\newlabel{fig:lennard-jonespotential}{{1}{2}{Potencial de Lennard-Jones.\relax }{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Integradors}{2}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Condicions periòdiques de contorn}{3}{subsection.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Control de la temperatura}{3}{subsection.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Unitats reduïdes}{3}{subsection.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5}Optimizacions: \textit  {cutoff} i truncació}{4}{subsection.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Simulació d'un sistema aïllat}{4}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Conservació de l'energia}{4}{subsection.2.1}\protected@file@percent }
+\newlabel{fig:energyverlet1}{{2a}{5}{$\Delta t = 10^{-3}$\relax }{figure.caption.2}{}}
+\newlabel{sub@fig:energyverlet1}{{a}{5}{$\Delta t = 10^{-3}$\relax }{figure.caption.2}{}}
+\newlabel{fig:energyverlet2}{{2b}{5}{$\Delta t = 10^{-4}$\relax }{figure.caption.2}{}}
+\newlabel{sub@fig:energyverlet2}{{b}{5}{$\Delta t = 10^{-4}$\relax }{figure.caption.2}{}}
+\newlabel{fig:energyverlet3}{{2c}{5}{$\Delta t = 10^{-5}$\relax }{figure.caption.2}{}}
+\newlabel{sub@fig:energyverlet3}{{c}{5}{$\Delta t = 10^{-5}$\relax }{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Energia potencial, cinètica i total en una simulació on s'empra l'integrador velocity Verlet, per diversos passos de temps.\relax }}{5}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:energyverlet}{{2}{5}{Energia potencial, cinètica i total en una simulació on s'empra l'integrador velocity Verlet, per diversos passos de temps.\relax }{figure.caption.2}{}}
+\newlabel{fig:energyeuler1}{{3a}{5}{$\Delta t = 10^{-3}$\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:energyeuler1}{{a}{5}{$\Delta t = 10^{-3}$\relax }{figure.caption.3}{}}
+\newlabel{fig:energyeuler2}{{3b}{5}{$\Delta t = 10^{-4}$\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:energyeuler2}{{b}{5}{$\Delta t = 10^{-4}$\relax }{figure.caption.3}{}}
+\newlabel{fig:energyeuler3}{{3c}{5}{$\Delta t = 10^{-5}$\relax }{figure.caption.3}{}}
+\newlabel{sub@fig:energyeuler3}{{c}{5}{$\Delta t = 10^{-5}$\relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Energia potencial, cinètica i total en una simulació on s'empra l'integrador d'Euler, per diversos passos de temps.\relax }}{5}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:energyeuler}{{3}{5}{Energia potencial, cinètica i total en una simulació on s'empra l'integrador d'Euler, per diversos passos de temps.\relax }{figure.caption.3}{}}
+\citation{StadPhys}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Conservació del moment}{6}{subsection.2.2}\protected@file@percent }
+\newlabel{fig:momentumverlet1}{{4a}{6}{$\Delta t = 10^{-3}$\relax }{figure.caption.4}{}}
+\newlabel{sub@fig:momentumverlet1}{{a}{6}{$\Delta t = 10^{-3}$\relax }{figure.caption.4}{}}
+\newlabel{fig:momentumverlet2}{{4b}{6}{$\Delta t = 10^{-4}$\relax }{figure.caption.4}{}}
+\newlabel{sub@fig:momentumverlet2}{{b}{6}{$\Delta t = 10^{-4}$\relax }{figure.caption.4}{}}
+\newlabel{fig:momentumverlet3}{{4c}{6}{$\Delta t = 10^{-5}$\relax }{figure.caption.4}{}}
+\newlabel{sub@fig:momentumverlet3}{{c}{6}{$\Delta t = 10^{-5}$\relax }{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Moment total en simulació on s'empra l'integrador velocity Verlet, per diversos passos de temps. El moment es considera constant, ja que s'ha d'anar a escales molt petites per veure'n les oscil·lacions.\relax }}{6}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:momentumverlet}{{4}{6}{Moment total en simulació on s'empra l'integrador velocity Verlet, per diversos passos de temps. El moment es considera constant, ja que s'ha d'anar a escales molt petites per veure'n les oscil·lacions.\relax }{figure.caption.4}{}}
+\newlabel{fig:momentumeuler1}{{5a}{6}{$\Delta t = 10^{-3}$\relax }{figure.caption.5}{}}
+\newlabel{sub@fig:momentumeuler1}{{a}{6}{$\Delta t = 10^{-3}$\relax }{figure.caption.5}{}}
+\newlabel{fig:momentumeuler2}{{5b}{6}{$\Delta t = 10^{-4}$\relax }{figure.caption.5}{}}
+\newlabel{sub@fig:momentumeuler2}{{b}{6}{$\Delta t = 10^{-4}$\relax }{figure.caption.5}{}}
+\newlabel{fig:momentumeuler3}{{5c}{6}{$\Delta t = 10^{-5}$\relax }{figure.caption.5}{}}
+\newlabel{sub@fig:momentumeuler3}{{c}{6}{$\Delta t = 10^{-5}$\relax }{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Moment total en simulació on s'empra l'integrador Euler, per diversos passos de temps. El moment es considera constant, ja que s'ha d'anar a escales molt petites per veure'n les oscil·lacions.\relax }}{6}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:momentumeuler}{{5}{6}{Moment total en simulació on s'empra l'integrador Euler, per diversos passos de temps. El moment es considera constant, ja que s'ha d'anar a escales molt petites per veure'n les oscil·lacions.\relax }{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Distribució de velocitats}{6}{subsection.2.3}\protected@file@percent }
+\newlabel{fig:ini_vel_x}{{6a}{6}{Eix x\relax }{figure.caption.6}{}}
+\newlabel{sub@fig:ini_vel_x}{{a}{6}{Eix x\relax }{figure.caption.6}{}}
+\newlabel{fig:ini_vel_y}{{6b}{6}{Eix y\relax }{figure.caption.6}{}}
+\newlabel{sub@fig:ini_vel_y}{{b}{6}{Eix y\relax }{figure.caption.6}{}}
+\newlabel{fig:ini_vel_z}{{6c}{6}{Eix z\relax }{figure.caption.6}{}}
+\newlabel{sub@fig:ini_vel_z}{{c}{6}{Eix z\relax }{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Distribució inicial de velocitats, per components.\relax }}{6}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:ini_vel}{{6}{6}{Distribució inicial de velocitats, per components.\relax }{figure.caption.6}{}}
+\citation{allen}
+\newlabel{fig:fin_vel_x_verlet}{{7a}{7}{Eix x\relax }{figure.caption.7}{}}
+\newlabel{sub@fig:fin_vel_x_verlet}{{a}{7}{Eix x\relax }{figure.caption.7}{}}
+\newlabel{fig:fin_vel_y_verlet}{{7b}{7}{Eix y\relax }{figure.caption.7}{}}
+\newlabel{sub@fig:fin_vel_y_verlet}{{b}{7}{Eix y\relax }{figure.caption.7}{}}
+\newlabel{fig:fin_vel_z_verlet}{{7c}{7}{Eix z\relax }{figure.caption.7}{}}
+\newlabel{sub@fig:fin_vel_z_verlet}{{c}{7}{Eix z\relax }{figure.caption.7}{}}
+\newlabel{fig:fin_vel_module_verlet}{{7d}{7}{Mòdul de la velocitat\relax }{figure.caption.7}{}}
+\newlabel{sub@fig:fin_vel_module_verlet}{{d}{7}{Mòdul de la velocitat\relax }{figure.caption.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Distribució final de velocitats, per components, ajustant una corba proporcional a la distribució de Maxwell-Boltzmann. Veiem que les nostres velocitats segueixen prou bé la distribució.\relax }}{7}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:fin_vel_verlet}{{7}{7}{Distribució final de velocitats, per components, ajustant una corba proporcional a la distribució de Maxwell-Boltzmann. Veiem que les nostres velocitats segueixen prou bé la distribució.\relax }{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Anàlisi de les propietats d'un líquid de Lennard-Jones}{7}{section.3}\protected@file@percent }
+\citation{Hess}
+\citation{Gregory}
+\citation{HansenVerlet}
+\citation{Gregory}
+\citation{Gregory}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Promig de l'energia ciètica, potencial i total per diferents valors de la densitat, a temperatura fixa.\relax }}{8}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:energyvsrho}{{8}{8}{Promig de l'energia ciètica, potencial i total per diferents valors de la densitat, a temperatura fixa.\relax }{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Desplaçament quadràtic mitjà}{8}{section.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Valors obtinguts de la pressió a diverses densitats.\relax }}{9}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:preassure}{{9}{9}{Valors obtinguts de la pressió a diverses densitats.\relax }{figure.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Font: \cite  {Gregory}\relax }}{9}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:screenshot-from-2023-12-17-11-11-40}{{10}{9}{Font: \cite {Gregory}\relax }{figure.caption.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Diagrama de fases d'un fluïd de Lennard-Jones. La zona vermella és la isoterma que estem explorant.\relax }}{10}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:screenshot-from-2023-12-17-11-22-54}{{11}{10}{Diagrama de fases d'un fluïd de Lennard-Jones. La zona vermella és la isoterma que estem explorant.\relax }{figure.caption.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Desplaçament quadràtic mig en front de la densitat del sistema. \relax }}{10}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:msd}{{12}{10}{Desplaçament quadràtic mig en front de la densitat del sistema. \relax }{figure.caption.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Evolució del MSD en funció del temps per la fase gasosa ($\rho ' = 0.05$) i la fase líquida ($\rho ' = 0.80$).\relax }}{11}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:msdevol}{{13}{11}{Evolució del MSD en funció del temps per la fase gasosa ($\rho ' = 0.05$) i la fase líquida ($\rho ' = 0.80$).\relax }{figure.caption.13}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Coeficients de difusió obtinguts per ambdues fases.\relax }}{11}{table.caption.14}\protected@file@percent }
+\newlabel{tab:coeficients}{{1}{11}{Coeficients de difusió obtinguts per ambdues fases.\relax }{table.caption.14}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusions}{11}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Annex}{11}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Inicialització de les posicions de les partícules}{11}{subsection.6.1}\protected@file@percent }
+\newlabel{annex:inicialitzacio}{{6.1}{11}{Inicialització de les posicions de les partícules}{subsection.6.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Condicions periòdiques de contorn}{12}{subsection.6.2}\protected@file@percent }
+\newlabel{annex:pbc}{{6.2}{12}{Condicions periòdiques de contorn}{subsection.6.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Força emprant el potencial de Lennard-Jones}{12}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Pas de temps de Velocity Verlet}{13}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Energia cinètica}{14}{subsection.6.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Temperatura instantànea}{14}{subsection.6.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.7}Inicialització de les velocitats}{14}{subsection.6.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.8}Càlcul del moment total del sistema}{15}{subsection.6.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.9}Pas de temps Euler}{15}{subsection.6.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.10}Pressió instantània}{16}{subsection.6.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.11}Desplaçament quadràtic mitjà}{16}{subsection.6.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.12}Termòstat Andersen}{17}{subsection.6.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.13}Box-Müller}{17}{subsection.6.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.14}Processing code: compute average}{17}{subsection.6.14}\protected@file@percent }
+\bibcite{StadPhys}{1}
+\bibcite{vverlet}{2}
+\bibcite{allen}{3}
+\bibcite{Hess}{4}
+\bibcite{Gregory}{5}
+\bibcite{HansenVerlet}{6}
+\gdef \@abspage@last{19}

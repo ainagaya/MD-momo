@@ -99,7 +99,7 @@ Program P_final_b
 		print*, "PRODUCTION STARTS"
 		print*, "-------------------"
 
-		Temp = 1.2
+		Temp = 2.0
 		sigma_gaussian = Temp**(1.d0/2.d0)
 		
 		do step = 1,Nsteps_prod

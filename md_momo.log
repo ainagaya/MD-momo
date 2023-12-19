@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.10.28)  2 DEC 2023 19:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.10.28)  19 DEC 2023 19:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -445,19 +445,100 @@ Package: subcaption 2020/10/07 v1.3j Sub-captions (AR)
 \WF@everypar=\toks26
 Package: wrapfig 2003/01/31  v 3.6
 )
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count300
+\lst@gtempboxa=\box59
+\lst@token=\toks27
+\lst@length=\count301
+\lst@currlwidth=\dimen173
+\lst@column=\count302
+\lst@pos=\count303
+\lst@lostspace=\dimen174
+\lst@width=\dimen175
+\lst@newlines=\count304
+\lst@lineno=\count305
+\lst@maxwidth=\dimen176
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count306
+\lst@skipnumbers=\count307
+\lst@framebox=\box60
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+
+(/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty
+Package: siunitx 2022-02-02 v3.0.46 A comprehensive (SI) units package
+\l__siunitx_angle_tmp_dim=\dimen177
+\l__siunitx_angle_marker_box=\box61
+\l__siunitx_angle_unit_box=\box62
+\l__siunitx_compound_count_int=\count308
+
+(/usr/share/texlive/texmf-dist/tex/latex/translations/translations.sty
+Package: translations 2022/01/04 v1.11 internationalization of LaTeX2e packages
+ (CN)
+)
+\l__siunitx_number_exponent_fixed_int=\count309
+\l__siunitx_number_min_decimal_int=\count310
+\l__siunitx_number_min_integer_int=\count311
+\l__siunitx_number_round_precision_int=\count312
+\l__siunitx_number_group_minimum_int=\count313
+\l__siunitx_table_tmp_box=\box63
+\l__siunitx_table_tmp_dim=\dimen178
+\l__siunitx_table_column_width_dim=\dimen179
+\l__siunitx_table_integer_box=\box64
+\l__siunitx_table_decimal_box=\box65
+\l__siunitx_table_before_box=\box66
+\l__siunitx_table_after_box=\box67
+\l__siunitx_table_before_dim=\dimen180
+\l__siunitx_table_carry_dim=\dimen181
+\l__siunitx_unit_tmp_int=\count314
+\l__siunitx_unit_position_int=\count315
+\l__siunitx_unit_total_int=\count316
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2022-01-21 L3 programming layer (loader) 
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count317
+\l__pdf_internal_box=\box68
+))
+Package: l3keys2e 2022-01-12 LaTeX2e option processing using LaTeX3 keys
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen182
+\ar@mcellbox=\box69
+\extrarowheight=\dimen183
+\NC@list=\toks28
+\extratabsurround=\skip66
+\backup@length=\skip67
+\ar@cellbox=\box70
+))
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
 (/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
 Package: tcolorbox 2022/01/07 version 5.0.2 text color boxes
 
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks27
-\pgfutil@tempdima=\dimen173
-\pgfutil@tempdimb=\dimen174
+\pgfutil@everybye=\toks29
+\pgfutil@tempdima=\dimen184
+\pgfutil@tempdimb=\dimen185
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
 ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box59
+\pgfutil@abb=\box71
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
 Package: pgfrcs 2021/05/15 v3.1.9a (3.1.9a)
@@ -470,33 +551,33 @@ Package: pgf 2021/05/15 v3.1.9a (3.1.9a)
 Package: pgfsys 2021/05/15 v3.1.9a (3.1.9a)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks28
-\pgfkeys@temptoks=\toks29
+\pgfkeys@pathtoks=\toks30
+\pgfkeys@temptoks=\toks31
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.t
 ex
-\pgfkeys@tmptoks=\toks30
+\pgfkeys@tmptoks=\toks32
 ))
-\pgf@x=\dimen175
-\pgf@y=\dimen176
-\pgf@xa=\dimen177
-\pgf@ya=\dimen178
-\pgf@xb=\dimen179
-\pgf@yb=\dimen180
-\pgf@xc=\dimen181
-\pgf@yc=\dimen182
-\pgf@xd=\dimen183
-\pgf@yd=\dimen184
+\pgf@x=\dimen186
+\pgf@y=\dimen187
+\pgf@xa=\dimen188
+\pgf@ya=\dimen189
+\pgf@xb=\dimen190
+\pgf@yb=\dimen191
+\pgf@xc=\dimen192
+\pgf@yc=\dimen193
+\pgf@xd=\dimen194
+\pgf@yd=\dimen195
 \w@pgf@writea=\write4
 \r@pgf@reada=\read4
-\c@pgf@counta=\count300
-\c@pgf@countb=\count301
-\c@pgf@countc=\count302
-\c@pgf@countd=\count303
-\t@pgf@toka=\toks31
-\t@pgf@tokb=\toks32
-\t@pgf@tokc=\toks33
-\pgf@sys@id@count=\count304
+\c@pgf@counta=\count318
+\c@pgf@countb=\count319
+\c@pgf@countc=\count320
+\c@pgf@countd=\count321
+\t@pgf@toka=\toks33
+\t@pgf@tokb=\toks34
+\t@pgf@tokc=\toks35
+\pgf@sys@id@count=\count322
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2021/05/15 v3.1.9a (3.1.9a)
 )
@@ -512,8 +593,8 @@ File: pgfsys-common-pdf.def 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
 tex
 File: pgfsyssoftpath.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfsyssoftpath@smallbuffer@items=\count305
-\pgfsyssoftpath@bigbuffer@items=\count306
+\pgfsyssoftpath@smallbuffer@items=\count323
+\pgfsyssoftpath@bigbuffer@items=\count324
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
 tex
@@ -526,12 +607,12 @@ Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen185
-\pgfmath@count=\count307
-\pgfmath@box=\box60
-\pgfmath@toks=\toks34
-\pgfmath@stack@operand=\toks35
-\pgfmath@stack@operation=\toks36
+\pgfmath@dimen=\dimen196
+\pgfmath@count=\count325
+\pgfmath@box=\box72
+\pgfmath@toks=\toks36
+\pgfmath@stack@operand=\toks37
+\pgfmath@stack@operation=\toks38
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
@@ -551,58 +632,58 @@ tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
 thmetics.code.tex)))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count308
+\c@pgfmathroundto@lastzeros=\count326
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
 x
 File: pgfcorepoints.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@picminx=\dimen186
-\pgf@picmaxx=\dimen187
-\pgf@picminy=\dimen188
-\pgf@picmaxy=\dimen189
-\pgf@pathminx=\dimen190
-\pgf@pathmaxx=\dimen191
-\pgf@pathminy=\dimen192
-\pgf@pathmaxy=\dimen193
-\pgf@xx=\dimen194
-\pgf@xy=\dimen195
-\pgf@yx=\dimen196
-\pgf@yy=\dimen197
-\pgf@zx=\dimen198
-\pgf@zy=\dimen199
+\pgf@picminx=\dimen197
+\pgf@picmaxx=\dimen198
+\pgf@picminy=\dimen199
+\pgf@picmaxy=\dimen256
+\pgf@pathminx=\dimen257
+\pgf@pathmaxx=\dimen258
+\pgf@pathminy=\dimen259
+\pgf@pathmaxy=\dimen260
+\pgf@xx=\dimen261
+\pgf@xy=\dimen262
+\pgf@yx=\dimen263
+\pgf@yy=\dimen264
+\pgf@zx=\dimen265
+\pgf@zy=\dimen266
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
 code.tex
 File: pgfcorepathconstruct.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@path@lastx=\dimen256
-\pgf@path@lasty=\dimen257
+\pgf@path@lastx=\dimen267
+\pgf@path@lasty=\dimen268
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
 .tex
 File: pgfcorepathusage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@shorten@end@additional=\dimen258
-\pgf@shorten@start@additional=\dimen259
+\pgf@shorten@end@additional=\dimen269
+\pgf@shorten@start@additional=\dimen270
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
 x
 File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfpic=\box61
-\pgf@hbox=\box62
-\pgf@layerbox@main=\box63
-\pgf@picture@serial@count=\count309
+\pgfpic=\box73
+\pgf@hbox=\box74
+\pgf@layerbox@main=\box75
+\pgf@picture@serial@count=\count327
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
 ode.tex
 File: pgfcoregraphicstate.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgflinewidth=\dimen260
+\pgflinewidth=\dimen271
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
 s.code.tex
 File: pgfcoretransformations.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@pt@x=\dimen261
-\pgf@pt@y=\dimen262
-\pgf@pt@temp=\dimen263
+\pgf@pt@x=\dimen272
+\pgf@pt@y=\dimen273
+\pgf@pt@temp=\dimen274
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2021/05/15 v3.1.9a (3.1.9a)
@@ -618,13 +699,13 @@ File: pgfcorepathprocessing.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
 x
 File: pgfcorearrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfarrowsep=\dimen264
+\pgfarrowsep=\dimen275
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@max=\dimen265
-\pgf@sys@shading@range@num=\count310
-\pgf@shadingcount=\count311
+\pgf@max=\dimen276
+\pgf@sys@shading@range@num=\count328
+\pgf@shadingcount=\count329
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
@@ -632,7 +713,7 @@ File: pgfcoreimage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
 tex
 File: pgfcoreexternal.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfexternal@startupbox=\box64
+\pgfexternal@startupbox=\box76
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
 x
@@ -651,23 +732,23 @@ File: pgfcorerdf.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfnodeparttextbox=\box65
+\pgfnodeparttextbox=\box77
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
 File: pgfmoduleplot.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
 .sty
 Package: pgfcomp-version-0-65 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@nodesepstart=\dimen266
-\pgf@nodesepend=\dimen267
+\pgf@nodesepstart=\dimen277
+\pgf@nodesepend=\dimen278
 )
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
 .sty
 Package: pgfcomp-version-1-18 2021/05/15 v3.1.9a (3.1.9a)
 )) (/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty
 Package: verbatim 2020-07-07 v1.5u LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks37
-\verbatim@line=\toks38
+\every@verbatim=\toks39
+\verbatim@line=\toks40
 \verbatim@in@stream=\read5
 )
 (/usr/share/texlive/texmf-dist/tex/latex/environ/environ.sty
@@ -676,44 +757,39 @@ Package: environ 2014/05/04 v0.3 A new way to define environments
 (/usr/share/texlive/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
-\tcb@titlebox=\box66
-\tcb@upperbox=\box67
-\tcb@lowerbox=\box68
-\tcb@phantombox=\box69
-\c@tcbbreakpart=\count312
-\c@tcblayer=\count313
-\c@tcolorbox@number=\count314
-\tcb@temp=\box70
-\tcb@temp=\box71
-\tcb@temp=\box72
-\tcb@temp=\box73
-)
-(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count315
-\l__pdf_internal_box=\box74
+\tcb@titlebox=\box78
+\tcb@upperbox=\box79
+\tcb@lowerbox=\box80
+\tcb@phantombox=\box81
+\c@tcbbreakpart=\count330
+\c@tcblayer=\count331
+\c@tcolorbox@number=\count332
+\tcb@temp=\box82
+\tcb@temp=\box83
+\tcb@temp=\box84
+\tcb@temp=\box85
 )
 (./md_momo.aux)
 \openout1 = `md_momo.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 77.
-LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -750,7 +826,7 @@ LaTeX Font Info:    ... okay on input line 77.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 77.
+Package hyperref Info: Link coloring OFF on input line 101.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
@@ -760,17 +836,18 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count316
+\c@section@level=\count333
 )
-LaTeX Info: Redefining \ref on input line 77.
-LaTeX Info: Redefining \pageref on input line 77.
-LaTeX Info: Redefining \nameref on input line 77.
+LaTeX Info: Redefining \ref on input line 101.
+LaTeX Info: Redefining \pageref on input line 101.
+LaTeX Info: Redefining \nameref on input line 101.
 
 (./md_momo.out) (./md_momo.out)
 \@outlinefile=\write5
 \openout5 = `md_momo.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: listings package is loaded.
 Package caption Info: longtable package is loaded.
 
 (/usr/share/texlive/texmf-dist/tex/latex/caption/ltcaption.sty
@@ -781,17 +858,17 @@ Package caption Info: End \AtBeginDocument code.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count317
-\scratchdimen=\dimen268
-\scratchbox=\box75
-\nofMPsegments=\count318
-\nofMParguments=\count319
-\everyMPshowfont=\toks39
-\MPscratchCnt=\count320
-\MPscratchDim=\dimen269
-\MPnumerator=\count321
-\makeMPintoPDFobject=\count322
-\everyMPtoPDFconversion=\toks40
+\scratchcounter=\count334
+\scratchdimen=\dimen279
+\scratchbox=\box86
+\nofMPsegments=\count335
+\nofMParguments=\count336
+\everyMPshowfont=\toks41
+\MPscratchCnt=\count337
+\MPscratchDim=\dimen280
+\MPnumerator=\count338
+\makeMPintoPDFobject=\count339
+\everyMPtoPDFconversion=\toks42
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -801,96 +878,272 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 8
-0.
+\c@lstlisting=\count340
 
-(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+(/usr/share/texlive/texmf-dist/tex/latex/translations/translations-basic-dictio
+nary-english.trsl
+File: translations-basic-dictionary-english.trsl (english translation file `tra
+nslations-basic-dictionary')
+)
+Package translations Info: loading dictionary `translations-basic-dictionary' f
+or `english'. on input line 101.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
+04.
+ (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )<<ot1.cmap>>
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 8
-0.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
+04.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )<<oml.cmap>>
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-80.
+104.
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )<<oms.cmap>>
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-80.
+104.
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 80.
+(Font)              <12> on input line 104.
 <<omx.cmap>>
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 80.
+(Font)              <8> on input line 104.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 80.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 80.
-
+(Font)              <6> on input line 104.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 104
+.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 80.
-
+LaTeX Font Info:    Trying to load font information for U+msb on input line 104
+.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 8
-6.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 106.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 106.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
+12.
 
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 90.
+(Font)              <10> on input line 116.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 90.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 90.
-<lennard-jones_potential.png, id=20, 286.1892pt x 228.3732pt>
-File: lennard-jones_potential.png Graphic file (type png)
-<use lennard-jones_potential.png>
-Package pdftex.def Info: lennard-jones_potential.png  used on input line 108.
-(pdftex.def)             Requested size: 306.95854pt x 244.94582pt.
+(Font)              <7> on input line 116.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2 <./lennard-jones_potent
-ial.png (PNG copy)>] (./md_momo.aux)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+<lennard-jones_potential.png, id=146, 19.272pt x 11.98477pt>
+File: lennard-jones_potential.png Graphic file (type png)
+<use lennard-jones_potential.png>
+Package pdftex.def Info: lennard-jones_potential.png  used on input line 138.
+(pdftex.def)             Requested size: 306.95854pt x 191.10715pt.
+ [2 <./lennard-jones_potential.png>] [3]
+<energy_verlet_1.png, id=164, 823.075pt x 501.875pt>
+File: energy_verlet_1.png Graphic file (type png)
+<use energy_verlet_1.png>
+Package pdftex.def Info: energy_verlet_1.png  used on input line 243.
+(pdftex.def)             Requested size: 197.33002pt x 120.32227pt.
+<energy_verlet_2.png, id=165, 823.075pt x 501.875pt>
+File: energy_verlet_2.png Graphic file (type png)
+<use energy_verlet_2.png>
+Package pdftex.def Info: energy_verlet_2.png  used on input line 248.
+(pdftex.def)             Requested size: 197.33002pt x 120.32227pt.
+<energy_verlet_3.png, id=166, 823.075pt x 501.875pt>
+File: energy_verlet_3.png Graphic file (type png)
+<use energy_verlet_3.png>
+Package pdftex.def Info: energy_verlet_3.png  used on input line 254.
+(pdftex.def)             Requested size: 197.33002pt x 120.32227pt.
+<energy_euler_1.png, id=169, 823.075pt x 501.875pt>
+File: energy_euler_1.png Graphic file (type png)
+<use energy_euler_1.png>
+Package pdftex.def Info: energy_euler_1.png  used on input line 267.
+(pdftex.def)             Requested size: 197.33002pt x 120.32227pt.
+<energy_euler_2.png, id=170, 823.075pt x 501.875pt>
+File: energy_euler_2.png Graphic file (type png)
+<use energy_euler_2.png>
+Package pdftex.def Info: energy_euler_2.png  used on input line 272.
+(pdftex.def)             Requested size: 197.33002pt x 120.32227pt.
+<energy_euler_3.png, id=171, 823.075pt x 501.875pt>
+File: energy_euler_3.png Graphic file (type png)
+<use energy_euler_3.png>
+Package pdftex.def Info: energy_euler_3.png  used on input line 277.
+(pdftex.def)             Requested size: 197.33002pt x 120.32227pt.
+<momentum_verlet_1.png, id=174, 823.075pt x 501.875pt>
+File: momentum_verlet_1.png Graphic file (type png)
+<use momentum_verlet_1.png>
+Package pdftex.def Info: momentum_verlet_1.png  used on input line 292.
+(pdftex.def)             Requested size: 131.55557pt x 80.21739pt.
+<momentum_verlet_2.png, id=175, 823.075pt x 501.875pt>
+File: momentum_verlet_2.png Graphic file (type png)
+<use momentum_verlet_2.png>
+Package pdftex.def Info: momentum_verlet_2.png  used on input line 297.
+(pdftex.def)             Requested size: 131.55557pt x 80.21739pt.
+<momentum_verlet_3.png, id=176, 823.075pt x 501.875pt>
+File: momentum_verlet_3.png Graphic file (type png)
+<use momentum_verlet_3.png>
+Package pdftex.def Info: momentum_verlet_3.png  used on input line 302.
+(pdftex.def)             Requested size: 131.55557pt x 80.21739pt.
+ [4] [5 <./energy_verlet_1.png> <./energy_verlet_2.png> <./energy_verlet_3.png>
+ <./energy_euler_1.png> <./energy_euler_2.png> <./energy_euler_3.png>]
+<momentum_euler_1.png, id=195, 823.075pt x 501.875pt>
+File: momentum_euler_1.png Graphic file (type png)
+<use momentum_euler_1.png>
+Package pdftex.def Info: momentum_euler_1.png  used on input line 313.
+(pdftex.def)             Requested size: 131.55557pt x 80.21739pt.
+<momentum_euler_2.png, id=196, 823.075pt x 501.875pt>
+File: momentum_euler_2.png Graphic file (type png)
+<use momentum_euler_2.png>
+Package pdftex.def Info: momentum_euler_2.png  used on input line 318.
+(pdftex.def)             Requested size: 131.55557pt x 80.21739pt.
+<momentum_euler_3.png, id=197, 823.075pt x 501.875pt>
+File: momentum_euler_3.png Graphic file (type png)
+<use momentum_euler_3.png>
+Package pdftex.def Info: momentum_euler_3.png  used on input line 323.
+(pdftex.def)             Requested size: 131.55557pt x 80.21739pt.
+<ini_vel_x.png, id=200, 823.075pt x 501.875pt>
+File: ini_vel_x.png Graphic file (type png)
+<use ini_vel_x.png>
+Package pdftex.def Info: ini_vel_x.png  used on input line 339.
+(pdftex.def)             Requested size: 131.55557pt x 80.21739pt.
+<ini_vel_y.png, id=201, 823.075pt x 501.875pt>
+File: ini_vel_y.png Graphic file (type png)
+<use ini_vel_y.png>
+Package pdftex.def Info: ini_vel_y.png  used on input line 344.
+(pdftex.def)             Requested size: 131.55557pt x 80.21739pt.
+<ini_vel_z.png, id=202, 823.075pt x 501.875pt>
+File: ini_vel_z.png Graphic file (type png)
+<use ini_vel_z.png>
+Package pdftex.def Info: ini_vel_z.png  used on input line 349.
+(pdftex.def)             Requested size: 131.55557pt x 80.21739pt.
+ [6 <./momentum_verlet_1.png> <./momentum_verlet_2.png> <./momentum_verlet_3.pn
+g> <./momentum_euler_1.png> <./momentum_euler_2.png> <./momentum_euler_3.png> <
+./ini_vel_x.png> <./ini_vel_y.png> <./ini_vel_z.png>]
+<fin_vel_x_verlet.png, id=218, 823.075pt x 501.875pt>
+File: fin_vel_x_verlet.png Graphic file (type png)
+<use fin_vel_x_verlet.png>
+Package pdftex.def Info: fin_vel_x_verlet.png  used on input line 376.
+(pdftex.def)             Requested size: 197.33002pt x 120.32227pt.
+<fin_vel_y_verlet.png, id=219, 823.075pt x 501.875pt>
+File: fin_vel_y_verlet.png Graphic file (type png)
+<use fin_vel_y_verlet.png>
+Package pdftex.def Info: fin_vel_y_verlet.png  used on input line 381.
+(pdftex.def)             Requested size: 197.33002pt x 120.32227pt.
+<fin_vel_z_verlet.png, id=220, 823.075pt x 501.875pt>
+File: fin_vel_z_verlet.png Graphic file (type png)
+<use fin_vel_z_verlet.png>
+Package pdftex.def Info: fin_vel_z_verlet.png  used on input line 386.
+(pdftex.def)             Requested size: 197.33002pt x 120.32227pt.
+<fin_vel_module_verlet.png, id=221, 823.075pt x 501.875pt>
+File: fin_vel_module_verlet.png Graphic file (type png)
+<use fin_vel_module_verlet.png>
+Package pdftex.def Info: fin_vel_module_verlet.png  used on input line 391.
+(pdftex.def)             Requested size: 197.33002pt x 120.32227pt.
+
+
+Package siunitx Warning: Unit macro \angstrom has been deprecated in this
+(siunitx)                release.
+(siunitx)                
+(siunitx)                The BIPM have removed this unit from the SI Brochure.
+(siunitx)                You should define it yourself using \DeclareSIUnit in
+(siunitx)                your source. The current definition is
+(siunitx)                
+(siunitx)                \DeclareSIUnit\angstrom{\text {Å}}
+
+<pot_energy_density.png, id=222, 823.075pt x 501.875pt>
+File: pot_energy_density.png Graphic file (type png)
+<use pot_energy_density.png>
+Package pdftex.def Info: pot_energy_density.png  used on input line 411.
+(pdftex.def)             Requested size: 438.51413pt x 267.38623pt.
+[7 <./fin_vel_x_verlet.png> <./fin_vel_y_verlet.png> <./fin_vel_z_verlet.png> <
+./fin_vel_module_verlet.png>]
+<preassure.png, id=236, 823.075pt x 501.875pt>
+File: preassure.png Graphic file (type png)
+<use preassure.png>
+Package pdftex.def Info: preassure.png  used on input line 431.
+(pdftex.def)             Requested size: 438.51413pt x 267.38623pt.
+<../../../../../Pictures/Screenshots/Screenshot from 2023-12-17 11-11-40.png, i
+d=237, 931.48pt x 711.65875pt>
+File: ../../../../../Pictures/Screenshots/Screenshot from 2023-12-17 11-11-40.p
+ng Graphic file (type png)
+<use ../../../../../Pictures/Screenshots/Screenshot from 2023-12-17 11-11-40.pn
+g>
+Package pdftex.def Info: ../../../../../Pictures/Screenshots/Screenshot from 20
+23-12-17 11-11-40.png  used on input line 439.
+(pdftex.def)             Requested size: 438.51413pt x 335.02261pt.
+<../../../../../Pictures/Screenshots/Screenshot from 2023-12-17 11-22-54.png, i
+d=241, 931.48pt x 711.65875pt>
+File: ../../../../../Pictures/Screenshots/Screenshot from 2023-12-17 11-22-54.p
+ng Graphic file (type png)
+<use ../../../../../Pictures/Screenshots/Screenshot from 2023-12-17 11-22-54.pn
+g>
+Package pdftex.def Info: ../../../../../Pictures/Screenshots/Screenshot from 20
+23-12-17 11-22-54.png  used on input line 446.
+(pdftex.def)             Requested size: 438.51413pt x 335.02261pt.
+<MSD.png, id=243, 823.075pt x 501.875pt>
+File: MSD.png Graphic file (type png)
+<use MSD.png>
+Package pdftex.def Info: MSD.png  used on input line 469.
+(pdftex.def)             Requested size: 438.51413pt x 267.38623pt.
+<MSD_evol.png, id=244, 823.075pt x 501.875pt>
+File: MSD_evol.png Graphic file (type png)
+<use MSD_evol.png>
+Package pdftex.def Info: MSD_evol.png  used on input line 477.
+(pdftex.def)             Requested size: 438.51413pt x 267.38623pt.
+ [8 <./pot_energy_density.png>] [9 <./preassure.png> <../../../../../Pictures/S
+creenshots/Screenshot from 2023-12-17 11-11-40.png>] [10 <../../../../../Pictur
+es/Screenshots/Screenshot from 2023-12-17 11-22-54.png> <./MSD.png>]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
+16.
+ (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [11 <./MSD_evol.png>] [12] [13] [14] [15] [16] [17] [18] [19] (./md_momo.aux)
 Package rerunfilecheck Info: File `md_momo.out' has not changed.
-(rerunfilecheck)             Checksum: 2683061BCFE68956229505708859080F;887.
+(rerunfilecheck)             Checksum: 06BC9B0B62751B05FB0157EA484A53CD;5584.
  ) 
 Here is how much of TeX's memory you used:
- 23546 strings out of 478287
- 432568 string characters out of 5849288
- 709882 words of memory out of 5000000
- 41259 multiletter control sequences out of 15000+600000
- 545088 words of font info for 88 fonts, out of 8000000 for 9000
+ 29858 strings out of 478287
+ 579325 string characters out of 5849288
+ 925006 words of memory out of 5000000
+ 47046 multiletter control sequences out of 15000+600000
+ 573888 words of font info for 104 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 83i,11n,80p,634b,403s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 83i,12n,80p,1133b,2578s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
-ips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share
-/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm
--mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf/f
-onts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx9.p
-fb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/
-type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb><
-/usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf/fonts/type1/
-public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/sha
-re/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm
-/lmr9.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb>
-Output written on md_momo.pdf (2 pages, 261275 bytes).
+ips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/te
+xmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ma
+thsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/texmf/f
+onts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.p
+fb></usr/share/texmf/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf/fonts/ty
+pe1/public/lm/lmbxi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb><
+/usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1
+/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/s
+hare/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public
+/lm/lmmi9.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/tex
+mf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6
+.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/t
+ype1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/
+share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/publ
+ic/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/
+texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/l
+mtt9.pfb>
+Output written on md_momo.pdf (19 pages, 1311099 bytes).
 PDF statistics:
- 91 PDF objects out of 1000 (max. 8388607)
- 68 compressed objects within 1 object stream
- 6 named destinations out of 1000 (max. 500000)
- 54 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 876 PDF objects out of 1000 (max. 8388607)
+ 790 compressed objects within 8 object streams
+ 460 named destinations out of 1000 (max. 500000)
+ 387 words of extra memory for PDF output out of 10000 (max. 10000000)
 
